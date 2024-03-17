@@ -13,10 +13,11 @@ function Home() {
   const user = data ?? [];
 
   return (
-    <div className="header">
+    <div className="header d-flex flex-column justify-content-center align-items-center vh-100">
       {user.map((item, i) => (
-        <h1 key={i}>{item.name}</h1>
+        <h1 className="text-center" key={i}>Welcome {item.name}</h1>
       ))}
+      <button className="btn btn-primary">Let's go to the meal</button>
     </div>
   );
 }
