@@ -19,7 +19,6 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <ProfileBar />
         <Suspense fallback={<Loader />}>
           <Routes>
             <Route index element={<Home />} />
