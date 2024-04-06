@@ -37,7 +37,6 @@ function Home() {
         <button className="btn btn-primary">Let's go to the meal</button>
       </div> */}
       <div>
-        <p className="text-center">Dishes</p>
         {dishes.map((item, i) => (
           <DishItem key={i} dishId={item.id_food_drink} />
         ))}
