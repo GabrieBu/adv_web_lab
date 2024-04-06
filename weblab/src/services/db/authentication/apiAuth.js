@@ -13,8 +13,5 @@ export async function getDishById(dishId) {
    
   if (error) console.log("Error in getting dish by id");
 
-  // I display the dish data to the console for debugging purposes
-  console.log("Dish data:", dish);
-
   return dish;
 }

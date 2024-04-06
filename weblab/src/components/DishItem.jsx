@@ -12,7 +12,9 @@ function DishItem({ dishId }) {
 
   return (
     <div>
-      <p>Test</p>
+        <h3>{dish[0].name}</h3>
+        <p>{dish[0].description}</p>
+        <p>{dish[0].selling_price}</p>
     </div>
   );
 }
