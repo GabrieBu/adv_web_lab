@@ -1,5 +1,3 @@
-import { getUserName } from "../services/db/authentication/apiAuth";
-import { getDishById } from "../services/db/authentication/apiAuth";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../loaders/Loader";
 import ProfileBar from "../components/ProfileBar";
@@ -7,11 +5,6 @@ import DishItem from "../components/DishItem";
 import { supabase } from "../services/db/supabase";
 
 function Home() {
-  const { data, isLoading: isLoadingSelect } = useQuery({
-    queryKey: ["user"],
-    queryFn: getUserName,
-  });
-
   const { data: dishes, isLoading: isLoadingDishes } = useQuery({
     queryKey: ["dishes"],
     queryFn: async () => {
@@ -21,9 +14,7 @@ function Home() {
     },
   });
 
-  if (isLoadingSelect || isLoadingDishes) return <Loader />;
-
-  const user = data ?? [];
+  if (isLoadingDishes) return <Loader />;
 
   return (
     <div>

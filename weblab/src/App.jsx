@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const Home = lazy(() => import("./pages/Home"));
 const PageNotFound = lazy(() => import("./pages/PageNotFound"));
-import ProfileBar from "./components/ProfileBar";
 
 const queryClient = new QueryClient({
   defaultOptions: {
