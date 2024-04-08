@@ -9,8 +9,11 @@ export async function getUserName() {
 }
 
 export async function getDishById(dishId) {
-  let { data: dish, error } = await supabase.from("food_drink").select("*").eq("id_food_drink", dishId);
-   
+  let { data: dish, error } = await supabase
+    .from("food_drink")
+    .select("*")
+    .eq("id_food_drink", dishId);
+
   if (error) console.log("Error in getting dish by id");
 
   return dish;
