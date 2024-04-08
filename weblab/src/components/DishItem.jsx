@@ -16,7 +16,7 @@ function DishItem({ dishId }) {
       <h3>{dish[0].name}</h3>
       <p>{dish[0].description}</p>
       <p>{dish[0].selling_price}</p>
-      <img {dish[0]?.image}/>
+      <img alt="image" src={dish[0].image} />
     </div>
   );
 }
