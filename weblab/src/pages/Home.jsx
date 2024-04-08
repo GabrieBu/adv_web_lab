@@ -1,5 +1,4 @@
 import { getUserName } from "../services/db/authentication/apiAuth";
-import { getDishById } from "../services/db/authentication/apiAuth";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../loaders/Loader";
 import ProfileBar from "../components/ProfileBar";
