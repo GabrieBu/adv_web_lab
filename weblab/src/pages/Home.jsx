@@ -19,14 +19,6 @@ function Home() {
   return (
     <div>
       <ProfileBar />
-      {/* <div className="header d-flex flex-column justify-content-center align-items-center vh-100">
-        {user.map((item, i) => (
-          <h1 className="text-center" key={i}>
-            Welcome {item.name}
-          </h1>
-        ))}
-        <button className="btn btn-primary">Let's go to the meal</button>
-      </div> */}
       <div>
         {dishes.map((item, i) => (
           <DishItem key={i} dishId={item.id_food_drink} />
