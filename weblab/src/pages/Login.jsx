@@ -17,9 +17,12 @@ function Login() {
   }
 
   function onResetPassword(obj) {
-    if (!obj.email) return;
+    if (!obj.email) {
+      alert("Email is required");
+      return;
+    }
     resetPassword(obj.email);
-    alert("email sent");
+    alert("Email sent");
   }
   return (
     <div className="container-fluid text-center">
@@ -61,7 +64,7 @@ function Login() {
           </form>
           <p></p>
           <div
-            className="container rounded bg-light p-4"
+            className="container rounded-lg bg-light p-4"
             style={{ marginTop: "5vh" }}
           >
             <Link
@@ -74,26 +77,22 @@ function Login() {
           </div>
           <p></p>
           <div className="container rounded bg-light p-4">
-            <button
+            <a
               onClick={() => setDisplay((i) => !i)}
               className="text-dark"
               style={{
-                textDecoration: "none",
-                backgroundColor: "#007bff",
-                color: "white",
                 padding: "10px 20px",
-                borderRadius: "5px",
                 border: "none",
                 marginBottom: "20px",
               }}
             >
               Reset password
-            </button>
+            </a>
 
             {display ? (
               <form onSubmit={handleSubmit_r(onResetPassword)}>
                 <label htmlFor="email">Insert a valid email</label>
-        
+
                 <input
                   id="email"
                   type="email"

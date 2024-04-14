@@ -8,7 +8,7 @@ export function useLogin() {
   const { mutate: login, isLoading } = useMutation({
     mutationFn: (auth) => loginApi(auth),
     onSuccess: () => {
-      navigate("/profile");
+      navigate("/home");
     },
   });
 

@@ -7,9 +7,13 @@ function Register() {
   const { register_api, isLoading } = useRegister();
 
   function onSubmit(auth) {
-    if (!auth.email || !auth.password) return;
+    if (auth.password !== auth.password_two) {
+      alert("The passwords do not match. Please try again.");
+      return;
+    }
     register_api(auth); //create record in OAuth supabase and corresponding record in user table (same user id)
   }
+
   return (
     <div className="container-fluid text-center">
       <div className="row justify-content-center">
@@ -38,7 +42,7 @@ function Register() {
                 type="text"
                 className="form-control"
                 aria-describedby="surnameHelp"
-                placeholder="surname"
+                placeholder="Surname"
                 {...register("surname", {
                   required: "This field is required",
                 })}
@@ -52,7 +56,7 @@ function Register() {
                 type="text"
                 className="form-control"
                 aria-describedby="usernameHelp"
-                placeholder="username"
+                placeholder="Username"
                 {...register("username", {
                   required: "This field is required",
                 })}
@@ -81,6 +85,18 @@ function Register() {
                 className="form-control"
                 placeholder="Password"
                 {...register("password", {
+                  required: "This field is required",
+                })}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password_two"></label>
+              <input
+                id="password_two"
+                type="password"
+                className="form-control"
+                placeholder="Confirm Password"
+                {...register("password_two", {
                   required: "This field is required",
                 })}
               />

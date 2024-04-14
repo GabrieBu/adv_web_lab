@@ -7,7 +7,10 @@ function UpdatePassword() {
   const { update, isLoading } = useUpdate();
 
   function onSubmit(obj) {
-    const { password, confirmPassword } = obj;
+    const { password, confirmPassword, email } = obj;
+    if (!password || !confirmPassword || !email) {
+      alert("Some fields are missing! Pleasy try again");
+    }
     if (password === confirmPassword) {
       update(obj);
       alert("Password updated successfully");
@@ -15,7 +18,7 @@ function UpdatePassword() {
       alert("The passwords do not match. Please try again.");
     }
   }
-  
+
   return (
     <div className="container-fluid text-center">
       <div className="row justify-content-center">
