@@ -7,14 +7,15 @@ function UpdatePassword() {
   const { update, isLoading } = useUpdate();
 
   function onSubmit(obj) {
-    if (obj.password != obj.password_two) {
-      console.log("Wrong password");
-      return;
+    const { password, confirmPassword } = obj;
+    if (password === confirmPassword) {
+      update(obj);
+      alert("Password updated successfully");
+    } else {
+      alert("The passwords do not match. Please try again.");
     }
-    update(obj);
-    alert("Password updated successfully");
   }
-
+  
   return (
     <div className="container-fluid text-center">
       <div className="row justify-content-center">
@@ -48,18 +49,20 @@ function UpdatePassword() {
                 })}
               />
             </div>
+
             <div className="form-group">
-              <label htmlFor="password_two"></label>
+              <label htmlFor="confirmPassword"></label>
               <input
-                id="password_two"
+                id="confirmPassword"
                 type="password"
                 className="form-control"
-                placeholder="Please confirm your password"
-                {...register("password_two", {
+                placeholder="Confirm Password"
+                {...register("confirmPassword", {
                   required: "This field is required",
                 })}
               />
             </div>
+
             <p></p>
             <button type="submit" className="btn btn-success">
               {!isLoading ? "Submit" : <Loader />}

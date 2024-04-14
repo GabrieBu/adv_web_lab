@@ -19,8 +19,8 @@ function Login() {
   function onResetPassword(obj) {
     if (!obj.email) return;
     resetPassword(obj.email);
+    alert("email sent");
   }
-
   return (
     <div className="container-fluid text-center">
       <div className="row justify-content-center">
@@ -77,7 +77,15 @@ function Login() {
             <button
               onClick={() => setDisplay((i) => !i)}
               className="text-dark"
-              style={{ textDecoration: "none" }}
+              style={{
+                textDecoration: "none",
+                backgroundColor: "#007bff",
+                color: "white",
+                padding: "10px 20px",
+                borderRadius: "5px",
+                border: "none",
+                marginBottom: "20px",
+              }}
             >
               Reset password
             </button>
@@ -85,6 +93,7 @@ function Login() {
             {display ? (
               <form onSubmit={handleSubmit_r(onResetPassword)}>
                 <label htmlFor="email">Insert a valid email</label>
+        
                 <input
                   id="email"
                   type="email"
@@ -95,7 +104,19 @@ function Login() {
                     required: "This field is required",
                   })}
                 />
-                <button type="submit">Send email</button>
+                <button
+                  type="submit"
+                  style={{
+                    backgroundColor: "#198754",
+                    color: "white",
+                    padding: "10px 20px",
+                    borderRadius: "5px",
+                    border: "none",
+                    marginTop: "10px",
+                  }}
+                >
+                  Send email
+                </button>
               </form>
             ) : (
               <></>
