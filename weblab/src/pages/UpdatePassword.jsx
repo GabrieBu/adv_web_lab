@@ -8,39 +8,69 @@ function UpdatePassword() {
 
   function onSubmit(obj) {
     update(obj);
+    alert("Password updated successfully");
   }
-
+  
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="email"></label>
-        <input
-          id="email"
-          type="email"
-          className="form-control"
-          aria-describedby="emailHelp"
-          placeholder="Email"
-          {...register("email", {
-            required: "This field is required",
-          })}
-        />
-        <label htmlFor="password"></label>
-        <input
-          id="password"
-          type="password"
-          className="form-control"
-          aria-describedby="emailHelp"
-          placeholder="Password"
-          {...register("password", {
-            required: "This field is required",
-          })}
-        />
-        <button type="submit">
-          {isLoading ? "Reset password" : <Loader />}
-        </button>
-      </form>
+    <div className="container-fluid text-center">
+      <div className="row justify-content-center">
+        <div className="col-10">
+          <p></p>
+          <h2 className="text-success">Password Reset</h2>
+          <form onSubmit={handleSubmit(onSubmit)}>
+
+
+            <div className="form-group">
+              <label htmlFor="email"></label>
+              <input
+                id="email"
+                type="email"
+                className="form-control"
+                aria-describedby="emailHelp"
+                placeholder="Email"
+                {...register("email", {
+                  required: "This field is required",
+                })}
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="password"></label>
+              <input
+                id="password"
+                type="password"
+                className="form-control"
+                placeholder="Password"
+                {...register("password", {
+                  required: "This field is required",
+                })}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password"></label>
+              <input
+                id="password"
+                type="password"
+                className="form-control"
+                placeholder="Please confirm your password"
+                {...register("password", {
+                  required: "This field is required",
+                })}
+              />
+            </div>
+            <p></p>
+            <button type="submit" className="btn btn-success">
+              {!isLoading ? "Submit" : <Loader />}
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
+
   );
 }
 
 export default UpdatePassword;
+
+
+
