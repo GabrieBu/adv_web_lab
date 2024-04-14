@@ -8,7 +8,7 @@ export function useRegister() {
   const { mutate: register_api, isLoading } = useMutation({
     mutationFn: (auth) => registerApi(auth),
     onSuccess: () => {
-      navigate("/profile");
+      navigate("/login");
     },
   });
 

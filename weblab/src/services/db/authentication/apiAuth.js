@@ -22,7 +22,7 @@ export async function registerApi(auth) {
   });
 
   const { error_ins } = await supabase.from("user").insert({
-    id: data.id,
+    id: data.user.id,
     name: auth.name,
     surname: auth.surname,
     username: auth.username,

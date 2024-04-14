@@ -8,7 +8,7 @@ function Register() {
 
   function onSubmit(auth) {
     if (!auth.email || !auth.password) return;
-    register_api(auth); //create record in OAuth supabase
+    register_api(auth); //create record in OAuth supabase and corresponding record in user table (same user id)
   }
   return (
     <div className="container-fluid text-center">

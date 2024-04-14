@@ -7,10 +7,14 @@ function UpdatePassword() {
   const { update, isLoading } = useUpdate();
 
   function onSubmit(obj) {
+    if (obj.password != obj.password_two) {
+      console.log("Wrong password");
+      return;
+    }
     update(obj);
     alert("Password updated successfully");
   }
-  
+
   return (
     <div className="container-fluid text-center">
       <div className="row justify-content-center">
@@ -18,8 +22,6 @@ function UpdatePassword() {
           <p></p>
           <h2 className="text-success">Password Reset</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
-
-
             <div className="form-group">
               <label htmlFor="email"></label>
               <input
@@ -47,13 +49,13 @@ function UpdatePassword() {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="password"></label>
+              <label htmlFor="password_two"></label>
               <input
-                id="password"
+                id="password_two"
                 type="password"
                 className="form-control"
                 placeholder="Please confirm your password"
-                {...register("password", {
+                {...register("password_two", {
                   required: "This field is required",
                 })}
               />
@@ -66,11 +68,7 @@ function UpdatePassword() {
         </div>
       </div>
     </div>
-
   );
 }
 
 export default UpdatePassword;
-
-
-
