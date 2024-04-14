@@ -9,6 +9,8 @@ const Login = lazy(() => import("./pages/Login"));
 const Profile = lazy(() => import("./pages/Profile"));
 const ProtectedRoute = lazy(() => import("./pages/ProtectedRoute"));
 const Register = lazy(() => import("./pages/Register"));
+const LoginAdmin = lazy(() => import("./pages/LoginAdmin"));
+const UpdatePassword = lazy(() => import("./pages/UpdatePassword"));
 const ProfileLayout = lazy(() => import("./ui/ProfileLayout"));
 
 const queryClient = new QueryClient({
@@ -29,6 +31,8 @@ function App() {
             <Route path="home" element={<Home />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
+            <Route path="loginadmin" element={<LoginAdmin />} />
+            <Route path="update" element={<UpdatePassword />} />
             <Route path="*" element={<PageNotFound />} />
             <Route
               element={

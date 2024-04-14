@@ -16,7 +16,6 @@ export async function loginApi(auth) {
 }
 
 export async function registerApi(auth) {
-  console.log(auth);
   let { data, error_reg } = await supabase.auth.signUp({
     email: auth.email,
     password: auth.password,
@@ -33,6 +32,29 @@ export async function registerApi(auth) {
   if (error_reg || error_ins)
     throw new Error(error_reg.message + error_ins.message);
 
+  return data;
+}
+
+export async function logout() {
+  let { error } = await supabase.auth.signOut();
+
+  if (error) return;
+}
+
+export async function resetPassword(auth) {
+  let { data, error } = await supabase.auth.resetPasswordForEmail(auth);
+
+  if (error) throw new Error(error.message);
+  return data;
+}
+
+export async function updatePassword(auth) {
+  const { data, error } = await supabase.auth.updateUser({
+    email: auth.email,
+    password: auth.password,
+  });
+
+  if (error) throw new Error(error.message);
   return data;
 }
 
