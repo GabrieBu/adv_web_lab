@@ -30,9 +30,10 @@ function Login() {
         <div className="col-10">
           <p></p>
           <h2 className="text-success">Log in</h2>
+          <p></p>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
-              <label htmlFor="email"></label>
+              <label htmlFor="email" className="col-sm-2 col-form-label text-sm-right">Email</label>
               <input
                 id="email"
                 type="email"
@@ -45,7 +46,7 @@ function Login() {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="password"></label>
+              <label htmlFor="password">Password</label>
               <input
                 id="password"
                 type="password"
