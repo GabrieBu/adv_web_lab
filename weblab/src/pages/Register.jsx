@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useRegister } from "../hooks/useRegister";
+import { validateEmail } from "../services/db/validation";
 import Loader from "../loaders/Loader";
 
 function Register() {
@@ -7,6 +8,10 @@ function Register() {
   const { register_api, isLoading } = useRegister();
 
   function onSubmit(auth) {
+    if (!validateEmail(auth.email)) {
+      alert("Email is not valid!");
+      return;
+    }
     if (auth.password !== auth.password_two) {
       alert("The passwords do not match. Please try again.");
       return;

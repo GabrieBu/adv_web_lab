@@ -4,6 +4,7 @@ import { useLogin } from "../hooks/useLogin";
 import Loader from "../loaders/Loader";
 import { Link } from "react-router-dom";
 import { resetPassword } from "../services/db/authentication/apiAuth";
+import { validateEmail } from "../services/db/validation";
 
 function Login() {
   const [display, setDisplay] = useState(false);
@@ -12,17 +13,21 @@ function Login() {
   const { login, isLoading } = useLogin();
 
   function onSubmit(auth) {
-    if (!auth.email || !auth.password) return;
-    login(auth);
+    if (!validateEmail(auth.email)) {
+      alert("Email not valid!");
+      return;
+    } else {
+      login(auth);
+    }
   }
 
   function onResetPassword(obj) {
-    if (!obj.email) {
-      alert("Email is required");
-      return;
+    if (!validateEmail(obj.email)) {
+      alert("Email not valid!");
+    } else {
+      resetPassword(obj.email);
+      alert("Email sent");
     }
-    resetPassword(obj.email);
-    alert("Email sent");
   }
   return (
     <div className="container-fluid text-center">
@@ -33,7 +38,12 @@ function Login() {
           <p></p>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
-              <label htmlFor="email" className="col-sm-2 col-form-label text-sm-right">Email</label>
+              <label
+                htmlFor="email"
+                className="col-sm-2 col-form-label text-sm-right"
+              >
+                Email
+              </label>
               <input
                 id="email"
                 type="email"
@@ -85,6 +95,7 @@ function Login() {
                 padding: "10px 20px",
                 border: "none",
                 marginBottom: "20px",
+                textDecoration: "none",
               }}
             >
               Reset password

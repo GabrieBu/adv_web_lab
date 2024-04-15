@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useUpdate } from "../hooks/useUpdate";
 import Loader from "../loaders/Loader";
+import { validateEmail } from "../services/db/validation";
 
 function UpdatePassword() {
   const { handleSubmit, register } = useForm();
@@ -8,6 +9,10 @@ function UpdatePassword() {
 
   function onSubmit(obj) {
     const { password, confirmPassword, email } = obj;
+    if (!validateEmail(email)) {
+      alert("Email not valid!");
+      return;
+    }
     if (!password || !confirmPassword || !email) {
       alert("Some fields are missing! Pleasy try again");
     }
