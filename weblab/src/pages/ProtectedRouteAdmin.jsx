@@ -1,18 +1,18 @@
 import PropTypes from "prop-types";
-
 import { useEffect } from "react";
 import Loader from "../loaders/Loader";
-import { useUser } from "../hooks/useUser";
+import { useAuthAdmin } from "../hooks/useAuthAdmin";
 import { useNavigate } from "react-router-dom";
 
-function ProtectedRoute({ children }) {
+function ProtectedRouteAdmin({ children }) {
   const navigate = useNavigate();
-  const { isLoading, isAuthenticated, fetchStatus } = useUser();
+  const { isLoading, isAuthenticated, fetchStatus } = useAuthAdmin();
 
   useEffect(
     function () {
-      if (!isAuthenticated && !isLoading && fetchStatus !== "fetching")
-        navigate("/login");
+      if (!isAuthenticated && !isLoading && fetchStatus !== "fetching") {
+        navigate("/loginadmin");
+      }
     },
     [isAuthenticated, isLoading, navigate, fetchStatus]
   );
@@ -22,8 +22,8 @@ function ProtectedRoute({ children }) {
   if (isAuthenticated) return children;
 }
 
-ProtectedRoute.propTypes = {
+ProtectedRouteAdmin.propTypes = {
   children: PropTypes.node.isRequired, // specify that children can be any renderable React node
 };
 
-export default ProtectedRoute;
+export default ProtectedRouteAdmin;

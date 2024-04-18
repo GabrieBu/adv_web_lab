@@ -5,7 +5,7 @@ bouncy.register();
 // Default values shown
 
 function Loader() {
-  return <l-bouncy size="45" speed="1.75" color="white"></l-bouncy>;
+  return <l-bouncy size="72" speed="1.75" color="black"></l-bouncy>;
 }
 
 export default Loader;

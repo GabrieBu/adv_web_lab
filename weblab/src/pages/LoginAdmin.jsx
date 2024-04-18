@@ -1,12 +1,15 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useLogin } from "../hooks/useLogin";
+import Loader from "../loaders/Loader";
 
 function LoginAdmin() {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
+  const { login, isLoading } = useLogin();
 
   function onSubmit(info) {
-    console.log(info);
+    login(info);
     navigate("/admin");
   }
 
@@ -15,11 +18,11 @@ function LoginAdmin() {
       <h2>Staff Login</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <label htmlFor="username">Username</label>
+          <label htmlFor="email">Email</label>
           <input
             type="text"
-            id="username"
-            {...register("username", {
+            id="email"
+            {...register("email", {
               required: "This field is required",
             })}
           />
@@ -34,7 +37,7 @@ function LoginAdmin() {
             })}
           />
         </div>
-        <button type="submit">Login</button>
+        <button type="submit">{!isLoading ? "Login" : <Loader />}</button>
       </form>
     </div>
   );

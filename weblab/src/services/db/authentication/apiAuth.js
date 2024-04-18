@@ -1,13 +1,5 @@
 import { supabase } from "../supabase";
 
-export async function getUserName() {
-  let { data: name, error } = await supabase.from("users").select("name");
-
-  if (error) console.log("Error in getting users name");
-
-  return name;
-}
-
 export async function loginApi(auth) {
   const { data, error } = await supabase.auth.signInWithPassword(auth);
 
@@ -64,9 +56,32 @@ export async function getUserLogged() {
   if (!session.session) return null;
 
   const { data, error } = await supabase.auth.getUser();
-
   if (error) throw new Error(error.message);
   return data?.user;
+}
+
+export async function getUser(id) {
+  console.log(id);
+  let { data: user, error } = await supabase
+    .from("user")
+    .select("*")
+    .eq("id", id);
+
+  if (error) console.log("Nobody user found");
+  console.log("user: ", user[0]);
+  return user[0];
+}
+
+export async function getAdmin(id) {
+  console.log(id);
+  let { data: admin, error } = await supabase
+    .from("staff")
+    .select("*")
+    .eq("id", id);
+
+  if (error) console.log("Nobody staff found");
+  console.log("admin", admin[0]);
+  return admin[0];
 }
 
 export async function getDishById(dishId) {

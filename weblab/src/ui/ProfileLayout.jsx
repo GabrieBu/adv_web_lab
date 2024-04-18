@@ -11,7 +11,7 @@ function ProfileLayout() {
 
   return (
     <div>
-      <h1>Now you are logged in</h1>
+      <h1>Now you are logged in as a user</h1>
       <button onClick={() => userLogout()}>Logout</button>
     </div>
   );
