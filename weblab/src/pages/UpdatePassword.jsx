@@ -5,7 +5,6 @@ import { validateEmail } from "../services/db/validation";
 
 function isStrongPassword(password) {
   // Example of a very simple password strength check
-  // You might want to use a more sophisticated criteria
   const minLength = 8;
   const hasNumbers = /\d/.test(password);
   const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
