@@ -3,6 +3,17 @@ import { useUpdate } from "../hooks/useUpdate";
 import Loader from "../loaders/Loader";
 import { validateEmail } from "../services/db/validation";
 
+function isStrongPassword(password) {
+  // Example of a very simple password strength check
+  // You might want to use a more sophisticated criteria
+  const minLength = 8;
+  const hasNumbers = /\d/.test(password);
+  const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+  const hasMixed = /[a-z]/.test(password) && /[A-Z]/.test(password);
+
+  return password.length >= minLength && hasNumbers && hasSpecial && hasMixed;
+}
+
 function UpdatePassword() {
   const { handleSubmit, register } = useForm();
   const { update, isLoading } = useUpdate();
@@ -14,14 +25,20 @@ function UpdatePassword() {
       return;
     }
     if (!password || !confirmPassword || !email) {
-      alert("Some fields are missing! Pleasy try again");
+      alert("Some fields are missing! Please try again");
+      return;
     }
-    if (password === confirmPassword) {
-      update(obj);
-      alert("Password updated successfully");
-    } else {
+    if (!isStrongPassword(password)) {
+      alert("Please enter a stronger password. Include numbers, special characters, and both uppercase and lowercase letters.");
+      return;
+    }
+    if (password !== confirmPassword) {
       alert("The passwords do not match. Please try again.");
+      return;
     }
+    
+    update(obj);
+    alert("Password updated successfully");
   }
 
   return (
