@@ -1,5 +1,7 @@
+import AdminLayout from "../ui/AdminLayout";
+
 function Admin() {
-  return <div></div>;
+  return <AdminLayout />;
 }
 
 export default Admin;

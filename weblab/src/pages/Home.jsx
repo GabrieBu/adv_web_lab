@@ -3,8 +3,10 @@ import Loader from "../loaders/Loader";
 import ProfileBar from "../components/ProfileBar";
 import DishItem from "../components/DishItem";
 import { supabase } from "../services/db/supabase";
+import useTitle from "../hooks/useTitle";
 
 function Home() {
+  useTitle("Home - Menu");
   const { data: dishes, isLoading: isLoadingDishes } = useQuery({
     queryKey: ["dishes"],
     queryFn: async () => {

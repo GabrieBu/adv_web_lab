@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { useRegister } from "../hooks/useRegister";
 import { validateEmail } from "../services/db/validation";
 import Loader from "../loaders/Loader";
+import useTitle from "../hooks/useTitle";
 
 function isStrongPassword(password) {
   const minLength = 8;
@@ -13,6 +14,7 @@ function isStrongPassword(password) {
 }
 
 function Register() {
+  useTitle("Sign up!");
   const { register, handleSubmit } = useForm();
   const { register_api, isLoading } = useRegister();
 
@@ -22,7 +24,9 @@ function Register() {
       return;
     }
     if (!isStrongPassword(auth.password)) {
-      alert("Please enter a stronger password. Include numbers, special characters, and both uppercase and lowercase letters.");
+      alert(
+        "Please enter a stronger password. Include numbers, special characters, and both uppercase and lowercase letters."
+      );
       return;
     }
     if (auth.password !== auth.password_two) {

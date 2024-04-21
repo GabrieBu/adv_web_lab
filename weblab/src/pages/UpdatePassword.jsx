@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { useUpdate } from "../hooks/useUpdate";
 import Loader from "../loaders/Loader";
 import { validateEmail } from "../services/db/validation";
+import useTitle from "../hooks/useTitle";
 
 function isStrongPassword(password) {
   // Example of a very simple password strength check
@@ -14,6 +15,7 @@ function isStrongPassword(password) {
 }
 
 function UpdatePassword() {
+  useTitle("Update password");
   const { handleSubmit, register } = useForm();
   const { update, isLoading } = useUpdate();
 
@@ -28,14 +30,16 @@ function UpdatePassword() {
       return;
     }
     if (!isStrongPassword(password)) {
-      alert("Please enter a stronger password. Include numbers, special characters, and both uppercase and lowercase letters.");
+      alert(
+        "Please enter a stronger password. Include numbers, special characters, and both uppercase and lowercase letters."
+      );
       return;
     }
     if (password !== confirmPassword) {
       alert("The passwords do not match. Please try again.");
       return;
     }
-    
+
     update(obj);
     alert("Password updated successfully");
   }

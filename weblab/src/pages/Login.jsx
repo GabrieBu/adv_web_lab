@@ -5,8 +5,10 @@ import Loader from "../loaders/Loader";
 import { Link } from "react-router-dom";
 import { resetPassword } from "../services/db/authentication/apiAuth";
 import { validateEmail } from "../services/db/validation";
+import useTitle from "../hooks/useTitle";
 
 function Login() {
+  useTitle("Login");
   const [display, setDisplay] = useState(false);
   const { register, handleSubmit } = useForm();
   const { register: register_r, handleSubmit: handleSubmit_r } = useForm();
