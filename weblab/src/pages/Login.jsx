@@ -13,12 +13,18 @@ function Login() {
   const { register, handleSubmit } = useForm();
   const { register: register_r, handleSubmit: handleSubmit_r } = useForm();
   const { login, isLoading } = useLogin();
+  const [errorMessages, setErrorMessages] = useState("");
 
-  function onSubmit(auth) {
+  async function onSubmit(auth) {  
     if (!validateEmail(auth.email)) {
-      alert("Email not valid!");
+      setErrorMessages("Please enter a valid email address");
       return;
-    } else {
+    }
+
+    if (!login(auth)) {
+      setErrorMessages("Invalid email or password");
+    }
+    else {
       login(auth);
     }
   }
@@ -70,6 +76,7 @@ function Login() {
                 })}
               />
             </div>
+            {errorMessages && <p className="text-danger">{errorMessages}</p>}
             <p></p>
             <button type="submit" className="btn btn-success">
               {!isLoading ? "Login" : <Loader />}

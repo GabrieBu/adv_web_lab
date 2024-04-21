@@ -1,8 +1,10 @@
 import { supabase } from "../supabase";
 
 export async function loginApi(auth) {
-  const { data, error } = await supabase.auth.signInWithPassword(auth);
-
+  let { data, error } = await supabase.auth.signInWithPassword({
+    email: auth.email,
+    password: auth.password,
+  });
   if (error) throw new Error(error.message);
   return data;
 }

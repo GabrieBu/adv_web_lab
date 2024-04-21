@@ -10,6 +10,10 @@ export function useLogin() {
     onSuccess: () => {
       navigate("/home");
     },
+    onError: (error) => {
+      console.log("Error in useLogin: ", error.message);
+      throw new Error(error.message);
+    },
   });
 
   return { login, isLoading };
