@@ -69,8 +69,4 @@ function Home() {
   );
 }
 
-// {dishes.map((item, i) => (
-//   <DishItem key={i} dishId={item.id_food_drink} />
-
-
 export default Home;
