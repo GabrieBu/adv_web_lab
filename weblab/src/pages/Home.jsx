@@ -4,11 +4,14 @@ import ProfileBar from "../components/ProfileBar";
 import DishItem from "../components/DishItem";
 import { supabase } from "../services/db/supabase";
 import useTitle from "../hooks/useTitle";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import useOrder from "../hooks/useOrder";
+import { Link } from "react-router-dom";
 
 function Home() {
+  const { order } = useOrder();
   useTitle("Home - Menu");
   const { data: dishes, isLoading: isLoadingDishes } = useQuery({
     queryKey: ["dishes"],
@@ -19,6 +22,9 @@ function Home() {
     },
   });
 
+  useEffect(() => {
+    console.log(order);
+  }, [order]);
   const [searchTerm, setSearchTerm] = useState("");
   const [showSearchBar, setShowSearchBar] = useState(false);
 
@@ -31,19 +37,21 @@ function Home() {
         <nav className="navbar navbar-light bg-light justify-content-end">
           {showSearchBar && (
             <form className="form-inline">
-              <input 
-                className="form-control mr-sm-2" 
-                type="search" 
-                placeholder="Search for a dish" 
-                aria-label="Search" 
+              <input
+                className="form-control mr-sm-2"
+                type="search"
+                placeholder="Search for a dish"
+                aria-label="Search"
                 onChange={(event) => {
                   setSearchTerm(event.target.value);
-              }} />
+                }}
+              />
             </form>
           )}
-          <button 
+          <button
             className="navbar-toggler"
-            onClick={() => setShowSearchBar(!showSearchBar)}>
+            onClick={() => setShowSearchBar(!showSearchBar)}
+          >
             <FontAwesomeIcon icon={faSearch} size="2x" />
           </button>
         </nav>
@@ -54,16 +62,22 @@ function Home() {
             .filter((dish) => {
               if (searchTerm === "") {
                 return dish;
-              }
-              else if (dish.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+              } else if (
+                dish.name.toLowerCase().includes(searchTerm.toLowerCase())
+              ) {
                 return dish;
               }
             })
             .map((dish) => (
               <DishItem key={dish.id_food_drink} dishId={dish.id_food_drink} />
-            ))
-          }
+            ))}
         </div>
+        <Link
+          to="/order"
+          style={{ position: "fixed", bottom: "50px", right: "20px" }}
+        >
+          <button>View Current Order</button>
+        </Link>
       </div>
     </div>
   );

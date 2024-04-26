@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { useLogin } from "../hooks/useLogin";
 import Loader from "../loaders/Loader";
 import useTitle from "../hooks/useTitle";
@@ -7,12 +6,10 @@ import useTitle from "../hooks/useTitle";
 function LoginAdmin() {
   useTitle("Login Staff");
   const { register, handleSubmit } = useForm();
-  const navigate = useNavigate();
   const { login, isLoading } = useLogin();
 
   function onSubmit(info) {
     login(info);
-    navigate("/admin");
   }
 
   return (
