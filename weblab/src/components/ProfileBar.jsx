@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faList, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+
 function ProfileBar() {
   return (
     <ul className="nav nav-pills nav-fill fixed-bottom">
@@ -9,7 +10,7 @@ function ProfileBar() {
           to="/home"
           className="nav-link active"
           aria-current="page"
-          style={{ borderRadius: "0px" }}
+          style={{ borderRadius: "0px", backgroundColor: "green"}}
         >
           <div className="d-flex flex-column align-items-center">
             <FontAwesomeIcon icon={faBars} />
@@ -19,13 +20,13 @@ function ProfileBar() {
       </li>
       <li className="nav-item">
         <Link
-          to="/history"
+          to="/order"
           className="nav-link"
-          style={{ borderRadius: "0px", backgroundColor: "white" }}
+          style={{ borderRadius: "0px", backgroundColor: "white", color: "green" }}
         >
           <div className="d-flex flex-column align-items-center">
             <FontAwesomeIcon icon={faList} />
-            History
+            Order
           </div>
         </Link>
       </li>
@@ -33,7 +34,7 @@ function ProfileBar() {
         <Link
           to="/profile"
           className="nav-link"
-          style={{ borderRadius: "0px", backgroundColor: "white" }}
+          style={{ borderRadius: "0px", backgroundColor: "white", color: "green"}}
         >
           <div className="d-flex flex-column align-items-center">
             <FontAwesomeIcon icon={faUser} />

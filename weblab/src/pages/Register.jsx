@@ -4,6 +4,9 @@ import { useRegister } from "../hooks/useRegister";
 import { validateEmail } from "../services/db/validation";
 import Loader from "../loaders/Loader";
 import useTitle from "../hooks/useTitle";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 function isStrongPassword(password) {
   const minLength = 8;
@@ -56,6 +59,9 @@ function Register() {
       <div className="row justify-content-center">
         <div className="col-10">
           <p></p>
+          <Link to="/login">
+            <FontAwesomeIcon icon={faArrowLeft} size="2x" style={{ position: "absolute", top: 10, left: 10, cursor: "pointer" }} />
+          </Link>
           <h2 className="text-success">Register</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">

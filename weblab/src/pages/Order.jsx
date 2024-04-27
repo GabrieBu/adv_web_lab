@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import Loader from "../loaders/Loader";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import ProfileBar from "../components/ProfileBar";
 
 function Order() {
   const { order } = useOrder();
@@ -28,37 +29,37 @@ function Order() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        Review Order page
-        <div style={{ color: "black" }}>
-          {order.dishes.map((dish, index) => (
-            <div key={index}>
-              <div>
-                <b>Name:</b> {dish.name}
-              </div>
-              <div>
-                <b>Price:</b> {dish.price}
-              </div>
-              <div>
-                <b>Notes:</b> {dish.notes}
-              </div>
-              <p></p>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            Review Order page
+            <div style={{ color: "black" }}>
+              {order.dishes.map((dish, index) => (
+                <div key={index}>
+                  <div>
+                    <b>Name:</b> {dish.name}
+                  </div>
+                  <div>
+                    <b>Price:</b> {dish.price}
+                  </div>
+                  <div>
+                    <b>Notes:</b> {dish.notes}
+                  </div>
+                  <p></p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        <select {...register("selectedTable")}>
-          <option value="">Select a table</option>
-          {tables.map((table) => (
-            <option key={table.id_table} value={table.id_table}>
-              {table.id_table}
-            </option>
-          ))}
-        </select>
-        <p></p>
-        <button type="submit">Submit</button>
-      </div>
-    </form>
+            <select {...register("selectedTable")}>
+              <option value="">Select a table</option>
+              {tables.map((table) => (
+                <option key={table.id_table} value={table.id_table}>
+                  {table.id_table}
+                </option>
+              ))}
+            </select>
+            <p></p>
+            <button type="submit">Submit</button>
+          </div>
+        </form>
   );
 }
 
