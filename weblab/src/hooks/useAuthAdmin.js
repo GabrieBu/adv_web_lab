@@ -21,5 +21,7 @@ export function useAuthAdmin() {
     isLoading: isLoading || isLoadingAdmin,
     isAuthenticated: user?.role === "authenticated" && admin?.id === user?.id,
     fetchStatus: fetchAdmin,
+    role: admin?.id_role,
+    id: admin?.id,
   };
 }

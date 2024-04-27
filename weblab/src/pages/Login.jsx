@@ -15,7 +15,7 @@ function Login() {
   const { login, isLoading } = useLogin();
   const [errorMessages, setErrorMessages] = useState("");
 
-  async function onSubmit(auth) {  
+  async function onSubmit(auth) {
     if (!validateEmail(auth.email)) {
       setErrorMessages("Please enter a valid email address");
       return;
@@ -23,8 +23,7 @@ function Login() {
 
     if (!login(auth)) {
       setErrorMessages("Invalid email or password");
-    }
-    else {
+    } else {
       login(auth);
     }
   }

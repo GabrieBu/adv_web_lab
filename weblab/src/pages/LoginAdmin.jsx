@@ -1,12 +1,12 @@
 import { useForm } from "react-hook-form";
-import { useLogin } from "../hooks/useLogin";
+import { useLoginAdmin } from "../hooks/useLoginAdmin";
 import Loader from "../loaders/Loader";
 import useTitle from "../hooks/useTitle";
 
 function LoginAdmin() {
   useTitle("Login Staff");
   const { register, handleSubmit } = useForm();
-  const { login, isLoading } = useLogin();
+  const { login, isLoading } = useLoginAdmin();
 
   function onSubmit(info) {
     login(info);
