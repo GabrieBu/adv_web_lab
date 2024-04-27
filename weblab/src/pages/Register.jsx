@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRegister } from "../hooks/useRegister";
 import { validateEmail } from "../services/db/validation";
@@ -17,23 +18,37 @@ function Register() {
   useTitle("Sign up!");
   const { register, handleSubmit } = useForm();
   const { register_api, isLoading } = useRegister();
+  const [errorMessages_Email, setErrorMessages_Email] = useState("");
+  const [errorMessages_Passwords, setErrorMessages_Passwords] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   function onSubmit(auth) {
+    setErrorMessages_Email("");
+    setErrorMessages_Passwords("");
+    setSuccessMessage("");
+
     if (!validateEmail(auth.email)) {
-      alert("Email is not valid!");
-      return;
+      setErrorMessages_Email("Email is not valid!");
     }
+    else {
+      setErrorMessages_Email("");
+    }
+
     if (!isStrongPassword(auth.password)) {
-      alert(
+      setErrorMessages_Passwords(
         "Please enter a stronger password. Include numbers, special characters, and both uppercase and lowercase letters."
       );
-      return;
     }
+
     if (auth.password !== auth.password_two) {
-      alert("The passwords do not match. Please try again.");
-      return;
+      setErrorMessages_Passwords("The passwords do not match.");
     }
+
     register_api(auth); //create record in OAuth supabase and corresponding record in user table (same user id)
+    if (register_api(auth)) {
+      setSuccessMessage("Successfully registered!");
+    }
+
   }
 
   return (
@@ -44,7 +59,7 @@ function Register() {
           <h2 className="text-success">Register</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
-              <label htmlFor="name"></label>
+              <label htmlFor="name">Name</label>
               <input
                 id="name"
                 type="text"
@@ -56,9 +71,10 @@ function Register() {
                 })}
               />
             </div>
+            <p></p>
 
             <div className="form-group">
-              <label htmlFor=""></label>
+              <label htmlFor="">Surname</label>
               <input
                 id="surname"
                 type="text"
@@ -70,9 +86,10 @@ function Register() {
                 })}
               />
             </div>
+            <p></p>
 
             <div className="form-group">
-              <label htmlFor="username"></label>
+              <label htmlFor="username">Username</label>
               <input
                 id="username"
                 type="text"
@@ -84,9 +101,10 @@ function Register() {
                 })}
               />
             </div>
+            <p></p>
 
             <div className="form-group">
-              <label htmlFor="email"></label>
+              <label htmlFor="email">Email</label>
               <input
                 id="email"
                 type="email"
@@ -98,9 +116,11 @@ function Register() {
                 })}
               />
             </div>
+            {errorMessages_Email && <p className="text-danger">{errorMessages_Email}</p>}
+            <p></p>
 
             <div className="form-group">
-              <label htmlFor="password"></label>
+              <label htmlFor="password">Password</label>
               <input
                 id="password"
                 type="password"
@@ -111,8 +131,10 @@ function Register() {
                 })}
               />
             </div>
+            <p></p>
+
             <div className="form-group">
-              <label htmlFor="password_two"></label>
+              <label htmlFor="password_two">Confirm Password</label>
               <input
                 id="password_two"
                 type="password"
@@ -123,10 +145,12 @@ function Register() {
                 })}
               />
             </div>
+            {errorMessages_Passwords && <p className="text-danger">{errorMessages_Passwords}</p>}
             <p></p>
             <button type="register" className="btn btn-success">
               {!isLoading ? "Register" : <Loader />}
             </button>
+            {successMessage && <p className="text-success">{successMessage}</p>}
           </form>
         </div>
       </div>

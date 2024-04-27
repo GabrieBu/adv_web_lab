@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { useLogin } from "../hooks/useLogin";
 import Loader from "../loaders/Loader";
 import { Link } from "react-router-dom";
@@ -14,6 +14,8 @@ function Login() {
   const { register: register_r, handleSubmit: handleSubmit_r } = useForm();
   const { login, isLoading } = useLogin();
   const [errorMessages, setErrorMessages] = useState("");
+  const [ errorMessages_resetPasssword, setErrorMessages_resetPasssword] = useState("");
+  const [ validation_resetPassword, setValidation_resetPassword] = useState("");
 
   async function onSubmit(auth) {  
     if (!validateEmail(auth.email)) {
@@ -31,10 +33,17 @@ function Login() {
 
   function onResetPassword(obj) {
     if (!validateEmail(obj.email)) {
-      alert("Email not valid!");
-    } else {
+      setErrorMessages_resetPasssword("Please enter a valid email address");
+    } 
+
+    if (resetPassword(obj.email)) {
+      setErrorMessages_resetPasssword("Email not found");
+      setValidation_resetPassword("");
+    }
+    else {
       resetPassword(obj.email);
-      alert("Email sent");
+      setValidation_resetPassword("Email sent");
+      setErrorMessages_resetPasssword("");
     }
   }
   return (
@@ -112,7 +121,8 @@ function Login() {
 
             {display ? (
               <form onSubmit={handleSubmit_r(onResetPassword)}>
-                <label htmlFor="email">Insert a valid email</label>
+                <p></p>
+                <label htmlFor="email">Email</label>
 
                 <input
                   id="email"
@@ -124,6 +134,8 @@ function Login() {
                     required: "This field is required",
                   })}
                 />
+                {errorMessages_resetPasssword && <p className="text-danger">{errorMessages_resetPasssword}</p>}
+                {validation_resetPassword && <p className="text-success">{validation_resetPassword}</p>}
                 <button
                   type="submit"
                   style={{
