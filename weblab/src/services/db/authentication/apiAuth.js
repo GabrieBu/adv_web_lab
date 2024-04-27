@@ -62,26 +62,24 @@ export async function getUserLogged() {
 }
 
 export async function getUser(id) {
-  console.log(id);
   let { data: user, error } = await supabase
     .from("user")
     .select("*")
     .eq("id", id);
 
   if (error) console.log("Nobody user found");
-  console.log("user: ", user[0]);
+
   return user[0];
 }
 
 export async function getAdmin(id) {
-  console.log(id);
   let { data: admin, error } = await supabase
     .from("staff")
     .select("*")
     .eq("id", id);
 
   if (error) console.log("Nobody staff found");
-  console.log("admin", admin[0]);
+
   return admin[0];
 }
 

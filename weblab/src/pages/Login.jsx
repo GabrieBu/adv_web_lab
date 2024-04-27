@@ -17,7 +17,7 @@ function Login() {
   const [ errorMessages_resetPasssword, setErrorMessages_resetPasssword] = useState("");
   const [ validation_resetPassword, setValidation_resetPassword] = useState("");
 
-  async function onSubmit(auth) {  
+  async function onSubmit(auth) {
     if (!validateEmail(auth.email)) {
       setErrorMessages("Please enter a valid email address");
       return;
@@ -25,8 +25,7 @@ function Login() {
 
     if (!login(auth)) {
       setErrorMessages("Invalid email or password");
-    }
-    else {
+    } else {
       login(auth);
     }
   }
