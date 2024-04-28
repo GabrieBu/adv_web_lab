@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faFilter } from "@fortawesome/free-solid-svg-icons";
 import useOrder from "../hooks/useOrder";
+import { Link } from "react-router-dom";
 
 function Home() {
   const { order } = useOrder();
@@ -133,6 +134,12 @@ function Home() {
               <DishItem key={dish.id_food_drink} dishId={dish.id_food_drink} />
             ))}
         </div>
+        <Link
+          to="/order"
+          style={{ position: "fixed", bottom: "70px", right: "20px" }}
+        >
+          <button className="btn btn-success">View Current Order</button>
+        </Link>
       </div>
     </div>
   );
