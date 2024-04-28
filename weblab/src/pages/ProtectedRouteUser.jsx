@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-
 import { useEffect } from "react";
 import Loader from "../loaders/Loader";
 import { useAuthUser } from "../hooks/useAuthUser";
@@ -11,6 +10,7 @@ function ProtectedRouteUser({ children }) {
 
   useEffect(
     function () {
+      console.log(isAuthenticated);
       if (!isAuthenticated && !isLoading && fetchStatus !== "fetching") {
         navigate("/login");
       }

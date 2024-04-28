@@ -17,7 +17,7 @@ function ProfileLayout() {
 
   const { data: user, isLoading } = useQuery({
     queryKey: ["user"],
-    queryFn: getUserLogged(),
+    queryFn: getUserLogged,
   });
 
   useEffect(() => {

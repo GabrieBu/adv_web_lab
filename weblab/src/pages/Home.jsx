@@ -115,7 +115,6 @@ function Home() {
         <div>
           {dishes
             .filter((dish) => {
-              console.log(dish.id_category, selectedFilter);
               if (searchTerm === "" && selectedFilter === 0) {
                 return dish;
               } else if (
