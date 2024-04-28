@@ -14,7 +14,25 @@ function ProfileLayout() {
     <div>
       <ProfileBar />
       <UserComponent />
-      <button onClick={() => userLogout()}>Logout</button>
+      <button 
+      className="logout-button" 
+      onClick={() => userLogout()}
+      style={{
+        position: 'fixed',
+          top: '20px',
+          right: '20px',
+          padding: '10px 20px',
+          fontSize: '1rem',
+          backgroundColor: '#d9534f',
+          color: 'white',
+          border: 'none',
+          borderRadius: '5px',
+          cursor: 'pointer',
+          boxShadow: '0 2px 4px rgba(0,0,0,.2)',
+          zIndex: 1000,
+        
+      }}
+      >Logout</button>
     </div>
   );
 }
