@@ -158,6 +158,12 @@ export default function Dish() {
           </div>
         </div>
       </div>
+      <Link
+          to="/order"
+          style={{ position: "fixed", bottom: "70px", right: "20px" }}
+        >
+          <button className="btn btn-success">View Current Order</button>
+        </Link>
     </div>
   );
 }
