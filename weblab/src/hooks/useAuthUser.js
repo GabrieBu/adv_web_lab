@@ -2,8 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { getUserLogged } from "../services/db/authentication/apiAuth";
 import { getUser } from "../services/db/authentication/apiAuth";
 
-//FIX AUTH USER
-
 export function useAuthUser() {
   const { isLoading, data: user } = useQuery({
     queryKey: ["auth"],
@@ -24,5 +22,7 @@ export function useAuthUser() {
     isAuthenticated:
       user?.role === "authenticated" && user_auth?.id === user?.id,
     fetchStatus: fetchUser,
+    user_auth: user_auth,
+    user: user,
   };
 }

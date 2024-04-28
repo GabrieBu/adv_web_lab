@@ -51,6 +51,14 @@ export async function updatePassword(auth) {
   return data;
 }
 
+export async function getSession() {
+  const { data: session } = await supabase.auth.getSession();
+
+  if (!session.session) return null;
+  console.log("session", session);
+  return session;
+}
+
 export async function getUserLogged() {
   const { data: session } = await supabase.auth.getSession();
 
@@ -68,7 +76,7 @@ export async function getUser(id) {
     .eq("id", id);
 
   if (error) console.log("Nobody user found");
-
+  console.log("api", user[0]);
   return user[0];
 }
 

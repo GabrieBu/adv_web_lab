@@ -49,13 +49,23 @@ export async function getEmptyTable() {
 }
 
 export async function getOrdersUser(id) {
-  let { data: tables, error } = await supabase
+  let { data: orders, error } = await supabase
     .from("order")
     .select("*")
-    .eq("state", "Paid")
-    .eq("id_user", id);
+    .eq("order.state", "Paid")
+    .eq("order.id_user", id);
 
-  if (error) console.log("No tables found");
+  if (error) console.log("Error fetching orders:", error);
 
-  return tables;
+  const orderIds = orders.map((item) => item.id_order);
+
+  let { data: contains, error: errorContains } = await supabase
+    .from("contains")
+    .select("id_dish")
+    .in("id_order", orderIds);
+
+  if (errorContains) console.log("Error fetching orders:", errorContains);
+
+  console.log(contains);
+  //return orders;
 }

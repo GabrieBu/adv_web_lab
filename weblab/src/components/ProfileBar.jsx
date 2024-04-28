@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faList, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
@@ -22,7 +23,6 @@ function ProfileBar({ active_page }) {
     color_profile = "white";
   }
 
-
   return (
     <ul className="nav nav-pills nav-fill fixed-bottom">
       <li className="nav-item">
@@ -30,7 +30,11 @@ function ProfileBar({ active_page }) {
           to="/home"
           className="nav-link active"
           aria-current="page"
-          style={{ borderRadius: "0px", backgroundColor: backgroundColor_home, color: color_home}}
+          style={{
+            borderRadius: "0px",
+            backgroundColor: backgroundColor_home,
+            color: color_home,
+          }}
         >
           <div className="d-flex flex-column align-items-center">
             <FontAwesomeIcon icon={faBars} />
@@ -42,7 +46,11 @@ function ProfileBar({ active_page }) {
         <Link
           to="/order"
           className="nav-link"
-          style={{ borderRadius: "0px", backgroundColor: backgroundColor_order, color: color_order }}
+          style={{
+            borderRadius: "0px",
+            backgroundColor: backgroundColor_order,
+            color: color_order,
+          }}
         >
           <div className="d-flex flex-column align-items-center">
             <FontAwesomeIcon icon={faList} />
@@ -54,7 +62,11 @@ function ProfileBar({ active_page }) {
         <Link
           to="/profile"
           className="nav-link"
-          style={{ borderRadius: "0px", backgroundColor: backgroundColor_profile, color: color_profile}}
+          style={{
+            borderRadius: "0px",
+            backgroundColor: backgroundColor_profile,
+            color: color_profile,
+          }}
         >
           <div className="d-flex flex-column align-items-center">
             <FontAwesomeIcon icon={faUser} />
@@ -65,5 +77,9 @@ function ProfileBar({ active_page }) {
     </ul>
   );
 }
+
+ProfileBar.propTypes = {
+  active_page: PropTypes.oneOf(["home", "order", "profile"]).isRequired,
+};
 
 export default ProfileBar;
