@@ -121,9 +121,9 @@ function Home() {
         </div>
         <Link
           to="/order"
-          style={{ position: "fixed", bottom: "50px", right: "20px" }}
+          style={{ position: "fixed", bottom: "70px", right: "20px" }}
         >
-          <button>View Current Order</button>
+          <button className="btn btn-success">View Current Order</button>
         </Link>
       </div>
     </div>
