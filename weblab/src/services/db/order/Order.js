@@ -5,18 +5,6 @@ class Order {
     this.tableId = null;
   }
 
-  addDish(dish) {
-    this.dishes.push(dish);
-  }
-
-  getDishes() {
-    return this.dishes;
-  }
-
-  deleteDish(dish) {
-    this.dishes.remove(dish);
-  }
-
   setTableId(id) {
     this.tableId = id;
   }

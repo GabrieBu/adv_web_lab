@@ -22,10 +22,8 @@ function AdminLayout() {
     content = <div>Content for 1</div>;
   } else if (tab === 2) {
     content = <div>Content for 2</div>;
-  } else if (tab === 3) {
-    content = <div>Content for 3</div>;
   } else {
-    content = <div>Default content</div>;
+    content = <div>Content for 3</div>;
   }
 
   return (

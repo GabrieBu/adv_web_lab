@@ -1,5 +1,9 @@
 import { supabase } from "../supabase";
 
+//STATE FOR AN ORDER:
+// PREPARING
+// PAID
+
 export async function placeOrder(order, tableid) {
   const { data: user } = await supabase.auth.getUser();
 
@@ -38,6 +42,18 @@ export async function getEmptyTable() {
     .select("*")
     .eq("state", true)
     .order("id_table", { ascending: true });
+
+  if (error) console.log("No tables found");
+
+  return tables;
+}
+
+export async function getOrdersUser(id) {
+  let { data: tables, error } = await supabase
+    .from("order")
+    .select("*")
+    .eq("state", "Paid")
+    .eq("id_user", id);
 
   if (error) console.log("No tables found");
 

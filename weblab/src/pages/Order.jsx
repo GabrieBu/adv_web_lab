@@ -8,18 +8,24 @@ import { useForm } from "react-hook-form";
 import ProfileBar from "../components/ProfileBar";
 
 function Order() {
-  const { order } = useOrder();
+  const { order, setOrder } = useOrder();
   const { register, handleSubmit } = useForm();
 
   useTitle("Review Order");
+
   const { data: tables, isLoading: isLoadingaTables } = useQuery({
     queryKey: ["tables"],
     queryFn: getEmptyTable,
   });
 
+  const removeDish = (index) => {
+    const updatedDishes = [...order.dishes];
+    updatedDishes.splice(index, 1);
+    setOrder({ ...order, dishes: updatedDishes });
+  };
+
   useEffect(() => {
     console.log(order);
-    console.log(tables);
   });
 
   if (isLoadingaTables) return <Loader />;
@@ -30,7 +36,7 @@ function Order() {
 
   return (
     <div>
-      <ProfileBar active_page={"order"}/>
+      <ProfileBar active_page={"order"} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           Review Order page
@@ -47,6 +53,9 @@ function Order() {
                   <b>Notes:</b> {dish.notes}
                 </div>
                 <p></p>
+                <a type="button" onClick={() => removeDish(index)}>
+                  <b>X</b>
+                </a>
               </div>
             ))}
           </div>

@@ -15,7 +15,6 @@ const ProtectedRouteUser = lazy(() => import("./pages/ProtectedRouteUser"));
 const ProtectedRouteAdmin = lazy(() => import("./pages/ProtectedRouteAdmin"));
 const Register = lazy(() => import("./pages/Register"));
 const Order = lazy(() => import("./pages/Order"));
-const History = lazy(() => import("./pages/History"));
 const LoginAdmin = lazy(() => import("./pages/LoginAdmin"));
 const UpdatePassword = lazy(() => import("./pages/UpdatePassword"));
 const ProfileLayout = lazy(() => import("./ui/ProfileLayout"));
@@ -41,7 +40,6 @@ function App() {
               <Route path="order" element={<Order />} />
               <Route path="login" element={<Login />} />
               <Route path="register" element={<Register />} />
-              <Route path="history" element={<History />} />
               <Route path="loginadmin" element={<LoginAdmin />} />
               <Route path="update" element={<UpdatePassword />} />
               <Route path="*" element={<PageNotFound />} />

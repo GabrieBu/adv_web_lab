@@ -8,11 +8,10 @@ import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faFilter } from "@fortawesome/free-solid-svg-icons";
 import useOrder from "../hooks/useOrder";
-import { Link } from "react-router-dom";
 
 function Home() {
   const { order } = useOrder();
- 
+
   useTitle("Home - Menu");
   const { data: dishes, isLoading: isLoadingDishes } = useQuery({
     queryKey: ["dishes"],
@@ -31,10 +30,16 @@ function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [showSearchBar, setShowSearchBar] = useState(false);
 
-  const [selectedFilter, setSelectedFilter] = useState(0)
-  const [showFilter, setShowFilter] = useState(false)
-  let filterNames = ["All", "Main Course", "Desserts", "Drinks", "First Course", "Side Dishes"]
-
+  const [selectedFilter, setSelectedFilter] = useState(0);
+  const [showFilter, setShowFilter] = useState(false);
+  let filterNames = [
+    "All",
+    "Main Course",
+    "Desserts",
+    "Drinks",
+    "First Course",
+    "Side Dishes",
+  ];
 
   if (isLoadingDishes) return <Loader />;
 
@@ -51,8 +56,8 @@ function Home() {
               <FontAwesomeIcon icon={faFilter} size="2x" />
             </button>
           </div>
-          <div style={{ display: "flex", alignItems: "center "}}>
-              {showSearchBar && (
+          <div style={{ display: "flex", alignItems: "center " }}>
+            {showSearchBar && (
               <form className="form-inline">
                 <input
                   className="form-control me-md-2"
@@ -73,58 +78,61 @@ function Home() {
             </button>
           </div>
         </nav>
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexWrap: "wrap"}}>
-          {showFilter && (
-              filterNames.map((filter, index) => {
-                return (
-                  <button
-                    key={index}
-                    onClick={() => setSelectedFilter(index)}
-                    style={{
-                      color: "black",
-                      backgroundColor: selectedFilter === index ? "lightgreen" : "white",
-                      borderRadius: "10px",
-                      padding: "0px 2px",
-                      margin: "2px",
-                      border: selectedFilter === index ? "1px solid green" : "1px solid lightgray"
-                    }}
-                  >
-                    {filter}
-                  </button>
-                )
-              })
-              )}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexWrap: "wrap",
+          }}
+        >
+          {showFilter &&
+            filterNames.map((filter, index) => {
+              return (
+                <button
+                  key={index}
+                  onClick={() => setSelectedFilter(index)}
+                  style={{
+                    color: "black",
+                    backgroundColor:
+                      selectedFilter === index ? "lightgreen" : "white",
+                    borderRadius: "10px",
+                    padding: "0px 2px",
+                    margin: "2px",
+                    border:
+                      selectedFilter === index
+                        ? "1px solid green"
+                        : "1px solid lightgray",
+                  }}
+                >
+                  {filter}
+                </button>
+              );
+            })}
         </div>
         <p></p>
         <div>
           {dishes
             .filter((dish) => {
               console.log(dish.id_category, selectedFilter);
-              if (searchTerm === ""
-                && selectedFilter === 0
-              ) {
+              if (searchTerm === "" && selectedFilter === 0) {
                 return dish;
-              } else if (dish.name.toLowerCase().includes(searchTerm.toLowerCase())
-                && selectedFilter === 0
+              } else if (
+                dish.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+                selectedFilter === 0
               ) {
                 return dish;
               } else if (
-                dish.name.toLowerCase().includes(searchTerm.toLowerCase())
-                && dish.id_category === selectedFilter
+                dish.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+                dish.id_category === selectedFilter
               ) {
                 return dish;
               }
             })
             .map((dish) => (
-              <DishItem key={dish.id_food_drink} dishId={dish.id_food_drink}/>
+              <DishItem key={dish.id_food_drink} dishId={dish.id_food_drink} />
             ))}
         </div>
-        <Link
-          to="/order"
-          style={{ position: "fixed", bottom: "70px", right: "20px" }}
-        >
-          <button className="btn btn-success">View Current Order</button>
-        </Link>
       </div>
     </div>
   );

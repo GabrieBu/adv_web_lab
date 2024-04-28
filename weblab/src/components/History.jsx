@@ -1,4 +1,4 @@
-function History() {
+function History({ user_id }) {
   return <div></div>;
 }
 

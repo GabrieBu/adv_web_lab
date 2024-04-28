@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getDishById } from "../services/db/authentication/apiAuth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,7 +12,7 @@ export default function Dish() {
   const { order, setOrder } = useOrder();
   const [count, setCount] = useState(1);
   const [note, setNote] = useState("");
-  const navigate = useNavigate();
+
   const { dishId } = useParams();
 
   const { data: dish, isLoading: isLoadingSelect } = useQuery({
@@ -46,10 +46,6 @@ export default function Dish() {
     }));
   }
 
-  useEffect(() => {
-    console.log(order);
-  }, [order]);
-
   if (isLoadingSelect) return <Loader />;
   if (!dish || dish.length === 0) return <p>No dish found.</p>;
 
@@ -63,7 +59,15 @@ export default function Dish() {
   return (
     <div>
       <ProfileBar />
-      <Link to="/home" style={{ position: "absolute", top: "16px", left: "16px",color: "green" }}>
+      <Link
+        to="/home"
+        style={{
+          position: "absolute",
+          top: "16px",
+          left: "16px",
+          color: "green",
+        }}
+      >
         <FontAwesomeIcon icon={faArrowLeft} size="2x" />
       </Link>
 
