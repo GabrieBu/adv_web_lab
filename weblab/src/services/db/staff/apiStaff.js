@@ -61,7 +61,10 @@ export async function getOrders(id) {
 }
 
 export async function getTables() {
-  const { data, error } = await supabase.from("table").select("*");
+  const { data, error } = await supabase
+    .from("table")
+    .select("*")
+    .order("id_table", { ascending: true });
 
   if (error) {
     console.log("Error retrieving tables");

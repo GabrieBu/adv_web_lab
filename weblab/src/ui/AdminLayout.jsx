@@ -5,6 +5,7 @@ import Sidebar from "../components/Sidebar";
 import { useState } from "react";
 import Orders from "../components/Orders";
 import AdminTables from "../components/AdminTables";
+import Payment from "../components/Payment";
 
 function AdminLayout() {
   const [tab, setTab] = useState(3);
@@ -20,7 +21,7 @@ function AdminLayout() {
   if (tab === 0) {
     content = <Orders />;
   } else if (tab === 1) {
-    content = <div>Content for 1</div>;
+    content = <Payment />;
   } else if (tab === 2) {
     content = <div>Content for 2</div>;
   } else {
