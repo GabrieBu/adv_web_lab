@@ -4,7 +4,6 @@ import useTitle from "../hooks/useTitle";
 import Sidebar from "../components/Sidebar";
 import { useState } from "react";
 import Orders from "../components/Orders";
-import AdminTables from "../components/AdminTables";
 
 function AdminLayout() {
   const [tab, setTab] = useState(3);
@@ -24,7 +23,7 @@ function AdminLayout() {
   } else if (tab === 2) {
     content = <div>Content for 2</div>;
   } else {
-    content = <AdminTables />;
+    content = <div>Content for 3</div>;
   }
 
   return (

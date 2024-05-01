@@ -4,8 +4,9 @@ import { supabase } from "../supabase";
 // PREPARING
 // PAID
 
-export async function placeOrder(order, tableid, price) {
+export async function placeOrder(order, tableid) {
   const { data: user } = await supabase.auth.getUser();
+
   let { data: insertedOrder, error: errorOrder } = await supabase
     .from("order")
     .insert({ state: "Preparing", id_table: tableid, id_user: user.user.id })
@@ -22,6 +23,7 @@ export async function placeOrder(order, tableid, price) {
     notes: item.notes,
   }));
 
+  console.log(recordsToInsert);
   const { error: errorContain } = await supabase
     .from("contains")
     .insert(recordsToInsert);
@@ -30,34 +32,11 @@ export async function placeOrder(order, tableid, price) {
     console.log("Error Contain");
     return;
   }
-
-  const { data: pointsUser, error: errorPoints } = await supabase
-    .from("user")
-    .select("points")
-    .eq("id", user.user.id);
-
-  if (errorPoints) {
-    console.log("Error selecting points");
-    return;
-  }
-
-  const new_points = Number(pointsUser[0] + price / 10);
-
-  const { error: errorUpdate } = await supabase
-    .from("user")
-    .update({ points: new_points })
-    .eq("id", user.user.id);
-
-  if (errorUpdate) {
-    console.log("Error Updating points");
-    return;
-  }
-
+  console.log("Correctly placed");
   return;
 }
 
 export async function getEmptyTable() {
-  // empty is true
   let { data: tables, error } = await supabase
     .from("table")
     .select("*")
@@ -73,6 +52,7 @@ export async function getOrdersUser(id) {
   let { data: orders, error } = await supabase
     .from("order")
     .select("*")
+    .eq("order.state", "Paid")
     .eq("order.id_user", id);
 
   if (error) console.log("Error fetching orders:", error);

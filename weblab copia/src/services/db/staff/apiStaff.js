@@ -59,26 +59,3 @@ export async function getOrders(id) {
 
   return { ordersData, containsData, dishesData };
 }
-
-export async function getTables() {
-  const { data, error } = await supabase.from("table").select("*");
-
-  if (error) {
-    console.log("Error retrieving tables");
-    return;
-  }
-
-  return data;
-}
-
-export async function setStateTable(id_table, value) {
-  const { error: errorUpdate } = await supabase
-    .from("table")
-    .update({ state: value })
-    .eq("id_table", id_table);
-
-  if (errorUpdate) {
-    console.log("Error Updating state table");
-    return;
-  }
-}
