@@ -34,7 +34,7 @@ function AdminTables() {
     try {
       await setStateTable(tableId, newState);
       setTables((prevTables) =>
-        prevTables.map((table) =>
+        prevTables?.map((table) =>
           table.id_table === tableId ? { ...table, state: newState } : table
         )
       );
@@ -52,7 +52,7 @@ function AdminTables() {
 
   return (
     <div>
-      {tables_state.map((table) => (
+      {tables_state?.map((table) => (
         <div key={table.id_table}>
           <p>Table: {table.id_table}</p>
           <p>state: {table.state ? "Empty" : "Booked"}</p>

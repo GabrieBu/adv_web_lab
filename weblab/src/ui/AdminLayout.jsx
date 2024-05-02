@@ -9,13 +9,7 @@ import Payment from "../components/Payment";
 
 function AdminLayout() {
   const [tab, setTab] = useState(3);
-  //const navigate = useNavigate();
   useTitle("Staff Dashboard");
-
-  /*function userLogout() {
-    navigate("/loginadmin");
-    logout();
-  }*/
 
   let content;
   if (tab === 0) {
@@ -23,7 +17,11 @@ function AdminLayout() {
   } else if (tab === 1) {
     content = <Payment />;
   } else if (tab === 2) {
-    content = <div>Content for 2</div>;
+    content = (
+      <div>
+        <p>content</p>
+      </div>
+    );
   } else {
     content = <AdminTables />;
   }
@@ -36,12 +34,6 @@ function AdminLayout() {
       </div>
     </div>
   );
-  /*return (
-    <div>
-      <h1>Now you are logged in as an Admin</h1>
-      <button onClick={() => userLogout()}>Logout</button>
-    </div>
-  );*/
 }
 
 export default AdminLayout;

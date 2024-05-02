@@ -41,8 +41,9 @@ export async function placeOrder(order, tableid, price) {
     return;
   }
 
-  const new_points = Number(pointsUser[0] + price / 10);
+  const new_points = Math.floor(pointsUser[0].points + price / 10);
 
+  console.log(new_points);
   const { error: errorUpdate } = await supabase
     .from("user")
     .update({ points: new_points })
@@ -61,7 +62,7 @@ export async function getEmptyTable() {
   let { data: tables, error } = await supabase
     .from("table")
     .select("*")
-    .eq("state", true)
+    .eq("state", false)
     .order("id_table", { ascending: true });
 
   if (error) console.log("No tables found");

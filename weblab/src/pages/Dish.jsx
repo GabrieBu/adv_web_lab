@@ -86,7 +86,7 @@ export default function Dish() {
         {/* <!-- Pizza Name and Price --> */}
         <div style={{ padding: "16px" }}>
           <div style={{ fontSize: "24px", fontWeight: "bold" }}>
-            Pizza Double Pepperoni
+            {dishData?.name}
           </div>
           <div style={{ fontSize: "20px", color: "green" }}>
             {dishData.selling_price}
@@ -159,11 +159,11 @@ export default function Dish() {
         </div>
       </div>
       <Link
-          to="/order"
-          style={{ position: "fixed", bottom: "70px", right: "20px" }}
-        >
-          <button className="btn btn-success">View Current Order</button>
-        </Link>
+        to="/order"
+        style={{ position: "fixed", bottom: "70px", right: "20px" }}
+      >
+        <button className="btn btn-success">View Current Order</button>
+      </Link>
     </div>
   );
 }
