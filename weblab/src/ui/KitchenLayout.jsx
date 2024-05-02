@@ -14,29 +14,46 @@ function KitchenLayout({ id }) {
   if (isLoading) return <Loader />;
 
   return (
-    <div>
-      <thead>
-        <tr>
-          <th>Mark as Ready</th>
-          <th>Name of the Dish</th>
-          <th>Order Time</th>
-          <th>Table</th>
-          <th>Notes</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data?.map((order) => (
-          <tr key={order.id_order}>
-            <td>
-              <input type="checkbox" />
-            </td>
-            <td>some_id_here</td>
-            <td>{order.created_at}</td>
-            <td>{order.id_table}</td>
-            <td>some note here</td>
+    <div className="table-responsive">
+      <table className="table table-striped table-bordered">
+        <thead className="thead-light">
+          <tr>
+            <th>Mark as Cooked</th>
+            <th>Name of the Dish</th>
+            <th>Order Time</th>
+            <th>Table Number</th>
+            <th>Notes</th>
+            <th>Served</th>
           </tr>
-        ))}
-      </tbody>
+        </thead>
+        <tbody>
+          {data.ordersData.map((order, index) => {
+            const containsForOrder = data.containsData.find(
+              (contain) => contain.id_order === order.id_order
+            );
+            const dishForOrder = containsForOrder
+              ? data.dishesData.find(
+                  (dish) => dish.id_dish === containsForOrder.id_dish
+                )
+              : null;
+            const dishName = dishForOrder ? dishForOrder.name : "N/A";
+            const notes = containsForOrder ? containsForOrder.notes : "";
+
+            return (
+              <tr key={`${order.id}_${index}`}>
+                <td>
+                  <input type="checkbox" aria-label="Mark as Served" />
+                </td>
+                <td>{dishName}</td>
+                <td>{order.created_at}</td>
+                <td>{order.id_table}</td>
+                <td>{notes}</td>
+                <td>No</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 }
