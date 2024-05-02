@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import { getOrders } from "../services/db/staff/apiStaff";
+import { getOrdersCooker } from "../services/db/staff/apiStaff";
 import PropTypes from "prop-types";
 import Loader from "../loaders/Loader";
 
 function KitchenLayout({ id }) {
   const { data, isLoading } = useQuery({
     queryKey: ["orders"],
-    queryFn: () => getOrders(id),
+    queryFn: () => getOrdersCooker(id),
   });
 
   const mergedData = data?.containsData.map((containsItem) => {

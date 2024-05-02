@@ -1,4 +1,4 @@
-import { getOrders } from "../services/db/staff/apiStaff";
+import { getOrdersWaiter } from "../services/db/staff/apiStaff";
 import { useQuery } from "@tanstack/react-query";
 import PropTypes from "prop-types";
 import Loader from "../loaders/Loader";
@@ -6,7 +6,7 @@ import Loader from "../loaders/Loader";
 function WaiterLayout({ id }) {
   const { isLoading, data } = useQuery({
     queryKey: ["orders"],
-    queryFn: () => getOrders(id),
+    queryFn: () => getOrdersWaiter(id),
   });
 
   const mergedData = data?.containsData.map((containsItem) => {

@@ -11,7 +11,55 @@ export async function getTable() {
   return tables;
 }
 
-export async function getOrders(id) {
+export async function getOrdersWaiter(id) {
+  const { data: manageData, error: manageError } = await supabase
+    .from("manage")
+    .select("id_order")
+    .eq("id_staff", id);
+
+  if (manageError) {
+    throw new Error("Error fetching managed orders");
+  }
+
+  // Extract the order IDs from the "manage" table data
+  const orderIds = manageData.map((item) => item.id_order);
+  console.log("orderIds:", orderIds);
+
+  const { data: ordersData, error: ordersError } = await supabase
+    .from("order")
+    .select("*")
+    .eq("state", "Preparing")
+    .in("id_order", orderIds);
+
+  if (ordersError) throw new Error("Error fetching orders");
+
+  const { data: containsData, error: containsError } = await supabase
+    .from("contains")
+    .select("*")
+    .in("id_order", orderIds);
+
+  if (containsError) {
+    throw new Error("Error fetching contains data for orders");
+  }
+
+  // Extract the dish IDs from the contains data
+  const dishIds = containsData.map((containsItem) => containsItem.id_dish);
+
+  // Fetch the dish names based on the extracted dish IDs
+  const { data: dishesData, error: dishesError } = await supabase
+    .from("food_drink")
+    .select("*")
+    .neq("id_category", 3) // Exclude dishes with id_category equal to 3
+    .in("id_food_drink", dishIds); // Include only dishes with id_food_drink in dishIds
+
+  if (dishesError) {
+    throw new Error("Error fetching dish names");
+  }
+
+  return { ordersData, containsData, dishesData };
+}
+
+export async function getOrdersCooker(id) {
   const { data: manageData, error: manageError } = await supabase
     .from("manage")
     .select("id_order")

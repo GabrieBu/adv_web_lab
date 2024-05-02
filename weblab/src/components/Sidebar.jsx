@@ -28,12 +28,20 @@ function Sidebar({ onSetTab, tab }) {
             tab === 2 ? "text-orange" : ""
           }`}
         >
-          Charts
+          Manage
         </button>
         <button
           onClick={() => onSetTab(3)}
           className={`list-group-item list-group-item-action bg-light ${
             tab === 3 ? "text-orange" : ""
+          }`}
+        >
+          Charts
+        </button>
+        <button
+          onClick={() => onSetTab(4)}
+          className={`list-group-item list-group-item-action bg-light ${
+            tab === 4 ? "text-orange" : ""
           }`}
         >
           Table Map
