@@ -9,45 +9,61 @@ function WaiterLayout({ id }) {
     queryFn: () => getOrders(id),
   });
 
+  const mergedData = data?.containsData.map((containsItem) => {
+    // Find the corresponding order data
+    const order = data?.ordersData.find(
+      (orderItem) => orderItem.id_order === containsItem.id_order
+    );
+
+    // Find the corresponding dish data
+    const dish = data?.dishesData.find(
+      (dishItem) => dishItem.id_food_drink === containsItem.id_dish
+    );
+
+    // Extract relevant information
+    const dishName = dish ? dish.name : "N/A";
+    const tableId = order ? order.id_table : "N/A";
+    const createdAt = order ? order.created_at : "N/A";
+
+    // Return merged object
+    return {
+      dishName,
+      tableId,
+      createdAt,
+    };
+  });
+
   if (isLoading) return <Loader />;
 
   return (
-    <table className="table">
-      <thead>
-        <tr>
-          <th>Mark as Served</th>
-          <th>Dish Name</th>
-          <th>Order Time</th>
-          <th>Table ID</th>
-          <th>Ready</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data.ordersData.map((order, index) => {
-          const containsForOrder = data.containsData.find(
-            (contain) => contain.id_order === order.id_order
-          );
-          const dishForOrder = containsForOrder
-            ? data.dishesData.find(
-                (dish) => dish.id_dish === containsForOrder.id_dish
-              )
-            : null;
-          const dishName = dishForOrder ? dishForOrder.name : "N/A";
-
-          return (
-            <tr key={`${order.id}_${index}`}>
+    <div className="table-responsive">
+      <table className="table table-striped table-bordered">
+        <thead className="thead-light">
+          <tr>
+            <th>Mark as Served</th>
+            <th>Dish Name</th>
+            <th>Order Time</th>
+            <th>Table Number</th>
+            <th>Notes</th>
+            <th>Ready</th>
+          </tr>
+        </thead>
+        <tbody>
+          {mergedData.map((item, index) => (
+            <tr key={index}>
               <td>
-                <input type="checkbox" aria-label="Mark as Served" />
+                <input type="checkbox" />
               </td>
-              <td>{dishName}</td>
-              <td>{order.created_at}</td>
-              <td>{order.id_table}</td>
+              <td>{item.dishName}</td>
+              <td>{item.createdAt}</td>
+              <td>{item.tableId}</td>
+              <td>{item.notes}</td>
               <td>No</td>
             </tr>
-          );
-        })}
-      </tbody>
-    </table>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
