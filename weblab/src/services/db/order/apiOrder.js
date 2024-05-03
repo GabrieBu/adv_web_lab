@@ -20,6 +20,7 @@ export async function placeOrder(order, tableid, price) {
     id_order: insertedOrder[0].id_order,
     id_dish: item.id,
     notes: item.notes,
+    state: "Not Ready",
   }));
 
   const { error: errorContain } = await supabase
