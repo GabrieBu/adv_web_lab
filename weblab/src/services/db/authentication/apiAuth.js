@@ -76,7 +76,7 @@ export async function getUser(id) {
     .eq("id", id);
 
   if (error) console.log("Nobody user found");
-  console.log("api", user[0]);
+
   return user[0];
 }
 

@@ -4,26 +4,24 @@ import useTitle from "../hooks/useTitle";
 import Sidebar from "../components/Sidebar";
 import { useState } from "react";
 import Orders from "../components/Orders";
+import AdminTables from "../components/AdminTables";
+import Manage from "../components/Manage";
 
 function AdminLayout() {
-  const [tab, setTab] = useState(3);
-  //const navigate = useNavigate();
+  const [tab, setTab] = useState(4);
   useTitle("Staff Dashboard");
-
-  /*function userLogout() {
-    navigate("/loginadmin");
-    logout();
-  }*/
 
   let content;
   if (tab === 0) {
     content = <Orders />;
   } else if (tab === 1) {
-    content = <div>Content for 1</div>;
+    content = <p>Payment</p>;
   } else if (tab === 2) {
-    content = <div>Content for 2</div>;
+    content = <Manage />;
+  } else if (tab === 3) {
+    content = <p>charts</p>;
   } else {
-    content = <div>Content for 3</div>;
+    content = <AdminTables />;
   }
 
   return (
@@ -34,12 +32,6 @@ function AdminLayout() {
       </div>
     </div>
   );
-  /*return (
-    <div>
-      <h1>Now you are logged in as an Admin</h1>
-      <button onClick={() => userLogout()}>Logout</button>
-    </div>
-  );*/
 }
 
 export default AdminLayout;

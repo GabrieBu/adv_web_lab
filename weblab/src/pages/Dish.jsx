@@ -25,10 +25,8 @@ export default function Dish() {
   };
 
   function addToOrder() {
-    // Create a temporary array to accumulate the changes
     const newOrder = [...order.dishes];
 
-    // Loop to add dishes to the newOrder array
     for (let i = 0; i < count; i++) {
       newOrder.push({
         name: dish[0].name,
@@ -36,10 +34,10 @@ export default function Dish() {
         image: dish[0].image,
         id: dishId,
         notes: note,
+        id_category: dish[0].id_category,
       });
     }
 
-    // Update the Order object with the new dishes array
     setOrder((prevOrder) => ({
       ...prevOrder,
       dishes: newOrder,
@@ -86,7 +84,7 @@ export default function Dish() {
         {/* <!-- Pizza Name and Price --> */}
         <div style={{ padding: "16px" }}>
           <div style={{ fontSize: "24px", fontWeight: "bold" }}>
-            Pizza Double Pepperoni
+            {dishData?.name}
           </div>
           <div style={{ fontSize: "20px", color: "green" }}>
             {dishData.selling_price}
@@ -159,11 +157,11 @@ export default function Dish() {
         </div>
       </div>
       <Link
-          to="/order"
-          style={{ position: "fixed", bottom: "70px", right: "20px" }}
-        >
-          <button className="btn btn-success">View Current Order</button>
-        </Link>
+        to="/order"
+        style={{ position: "fixed", bottom: "70px", right: "20px" }}
+      >
+        <button className="btn btn-success">View Current Order</button>
+      </Link>
     </div>
   );
 }
