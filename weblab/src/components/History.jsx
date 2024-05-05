@@ -2,12 +2,16 @@ import { useQuery } from "@tanstack/react-query";
 import { getOrdersUser } from "../services/db/profile/apiProfile";
 import PropTypes from "prop-types";
 import Loader from "../loaders/Loader";
+import React, { useState } from 'react';  // Import useState for managing local state
 
 function History({ id }) {
   const { data, isLoading } = useQuery({
     queryKey: ["orders"],
     queryFn: () => getOrdersUser(id),
   });
+
+  // State to manage which order's details are visible
+  const [visibleOrder, setVisibleOrder] = useState(null);
 
   if (isLoading) {
     return <Loader />;
@@ -26,11 +30,10 @@ function History({ id }) {
       };
     });
 
-    // Calculate total amount of the order
     const totalAmount = orderDishes.reduce(
-      (total, dish) => total + dish.selling_price,
-      0
-    );
+             (total, dish) => total + dish.selling_price,
+             0
+          );
 
     return {
       ...order,
@@ -40,24 +43,35 @@ function History({ id }) {
     };
   });
 
-  console.log("Merged orders", JSON.stringify(mergedOrders));
+  const toggleOrder = (id_order) => {
+    if (visibleOrder === id_order) {
+      setVisibleOrder(null); // If clicked again, it will collapse
+    } else {
+      setVisibleOrder(id_order); // Otherwise, expand the clicked order
+    }
+  };
 
   return (
     <div>
       <h2>Order History</h2>
       {mergedOrders.map((order, index) => (
         <div key={index}>
-          <p>Order #{order.id_order}</p>
-          <p>Dishes:</p>
-          <ul>
-            {order.dishes.map((dish, index) => (
-              <li key={index}>
-                {dish.name} - Quantity: {dish.quantity} - Price: $
-                {dish.selling_price} each
-              </li>
-            ))}
-          </ul>
-          <p>Total Amount: ${order.totalAmount}</p>
+          <p style={{ cursor: 'pointer' }} onClick={() => toggleOrder(order.id_order)}>
+            Order #{order.id_order} -View details
+          </p>
+          {visibleOrder === order.id_order && (
+            <div>
+              <p>Dishes:</p>
+              <ul>
+                {order.dishes.map((dish, index) => (
+                  <li key={index}>
+                    {dish.name} - Quantity: {dish.quantity} - Price: ${dish.selling_price} each
+                  </li>
+                ))}
+              </ul>
+              <p>Total Amount: ${order.totalAmount}</p>
+            </div>
+          )}
         </div>
       ))}
     </div>
@@ -69,3 +83,5 @@ History.propTypes = {
 };
 
 export default History;
+
+
