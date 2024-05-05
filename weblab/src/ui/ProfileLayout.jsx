@@ -14,7 +14,7 @@ function ProfileLayout() {
 
   return (
     <div>
-      <ProfileBar />
+      <ProfileBar active_page="profile" />
       <UserComponent />
       <button
         className="logout-button"

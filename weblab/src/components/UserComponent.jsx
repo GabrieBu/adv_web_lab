@@ -1,14 +1,24 @@
+import React, { useState } from "react";
 import Loader from "../loaders/Loader";
 import { useAuthUser } from "../hooks/useAuthUser";
 import History from "./History";
 
 function UserComponent() {
   const { user_auth, user, isLoading } = useAuthUser();
+  const [showEdit, setShowEdit] = useState(false);
+  const [validation_resetPassword, setValidation_resetPassword] = useState("");
+
+  function resetPassword() {
+    resetPassword(user.email);
+    setValidation_resetPassword("Email sent");
+  }
 
   if (isLoading) return <Loader />;
   return (
     <div className="user-component">
-      <button className="edit-button">Edit</button>
+      <button className="edit-button"
+        onClick={() => setShowEdit(!showEdit)}
+      >Edit</button>
       <div className="welcome-section">
         <h1>Welcome</h1>
         <h2>
@@ -18,11 +28,24 @@ function UserComponent() {
       <hr />
       <div className="user-info">
         <h3>
-          <b>Username:{user_auth.username}</b>
+          <p><b>Username </b>{user_auth.username}</p>
+          {showEdit && (
+            <div>
+              <button 
+              type="button"
+              className="btn btn-success"
+              onClick={resetPassword}>Reset Password</button>
+              {validation_resetPassword && (
+                <p className="text-success">{validation_resetPassword}</p>
+              )}
+            </div>
+          )}
+          
         </h3>
         <br />
         <h3>
-          <b>Earned Points:{user_auth.points}</b>
+          <b className="text-success">Earned Points </b>
+          {user_auth.points}
         </h3>
       </div>
       <hr />
