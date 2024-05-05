@@ -41,8 +41,6 @@ function Orders() {
     return { dishName, orderTime, tableId, state_cooker, state_waiter };
   });
 
-  console.log(mergedData);
-
   if (isLoading) return <Loader />;
   return (
     <table className="table">
@@ -59,7 +57,7 @@ function Orders() {
         {mergedData?.map((item, index) => (
           <tr key={index}>
             <td>{item.dishName}</td>
-            <td>{item.orderTime}</td>
+            <td>{item.orderTime.split(":").slice(0, 2).join(":")}</td>
             <td>{item.tableId}</td>
             <td>{item.state_cooker}</td>
             <td>{item.state_waiter}</td>

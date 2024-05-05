@@ -28,7 +28,7 @@ function UserComponent() {
       <hr />
       <div className="history">
         <h1>Past orders:</h1>
-        <History user_id={user.id} />
+        <History id={user.id} />
       </div>
       <hr />
       <style>{`

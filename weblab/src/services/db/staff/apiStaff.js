@@ -50,7 +50,6 @@ export async function getOrdersWaiter(id) {
   const { data: dishesData, error: dishesError } = await supabase
     .from("food_drink")
     .select("*")
-    .neq("id_category", 3) // Exclude dishes with id_category equal to 3
     .in("id_food_drink", dishIds); // Include only dishes with id_food_drink in dishIds
 
   if (dishesError) {
@@ -214,4 +213,70 @@ export async function getOrdersAdmin() {
   }
 
   return { ordersData, containsData, dishesData };
+}
+
+export async function getStaff() {
+  const { data: ordersData, error: ordersError } = await supabase
+    .from("order")
+    .select("*")
+    .neq("state", "Paid");
+
+  if (ordersError) {
+    console.log("Orders error");
+    return;
+  }
+
+  const { data: cookersData, error: cookersError } = await supabase
+    .from("staff")
+    .select("*")
+    .eq("id_role", 1);
+
+  if (cookersError) {
+    console.log("Cookers error");
+    return;
+  }
+
+  const { data: waitersData, error: waitersError } = await supabase
+    .from("staff")
+    .select("*")
+    .eq("id_role", 2);
+
+  if (waitersError) {
+    console.log("Waiters error");
+    return;
+  }
+
+  return { ordersData, cookersData, waitersData };
+}
+
+export async function getManage() {
+  const { data, error } = await supabase.from("manage").select("*");
+
+  if (error) {
+    console.log("Waiters error");
+    return;
+  }
+  return data;
+}
+
+export async function updateOrderStaff(orderId, staffId, isAssigned) {
+  console.log(orderId, staffId, isAssigned);
+  if (isAssigned) {
+    const { error } = await supabase
+      .from("manage")
+      .insert({ id_order: orderId, id_staff: staffId })
+      .select();
+    if (error) {
+      console.log("Error Inserting");
+    }
+  } else {
+    const { error } = await supabase
+      .from("manage")
+      .delete()
+      .eq("id_order", orderId)
+      .eq("id_staff", staffId);
+    if (error) {
+      console.log("Error deleting");
+    }
+  }
 }

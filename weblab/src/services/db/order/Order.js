@@ -3,6 +3,7 @@ class Order {
     this.userId = null;
     this.dishes = [];
     this.tableId = null;
+    this.id_category = null;
   }
 
   setTableId(id) {

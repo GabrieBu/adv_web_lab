@@ -99,7 +99,7 @@ function WaiterLayout({ id }) {
                 />
               </td>
               <td>{item.dishName}</td>
-              <td>{item.createdAt}</td>
+              <td>{item.createdAt.split(":").slice(0, 2).join(":")}</td>
               <td>{item.tableId}</td>
               <td>{item.notes}</td>
               <td>{item.state}</td>

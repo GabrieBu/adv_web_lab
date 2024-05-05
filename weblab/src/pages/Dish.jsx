@@ -25,10 +25,8 @@ export default function Dish() {
   };
 
   function addToOrder() {
-    // Create a temporary array to accumulate the changes
     const newOrder = [...order.dishes];
 
-    // Loop to add dishes to the newOrder array
     for (let i = 0; i < count; i++) {
       newOrder.push({
         name: dish[0].name,
@@ -36,10 +34,10 @@ export default function Dish() {
         image: dish[0].image,
         id: dishId,
         notes: note,
+        id_category: dish[0].id_category,
       });
     }
 
-    // Update the Order object with the new dishes array
     setOrder((prevOrder) => ({
       ...prevOrder,
       dishes: newOrder,

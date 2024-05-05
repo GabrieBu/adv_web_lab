@@ -1,9 +1,5 @@
 import { supabase } from "../supabase";
 
-//STATE FOR AN ORDER:
-// PREPARING
-// PAID
-
 export async function placeOrder(order, tableid, price) {
   const { data: user } = await supabase.auth.getUser();
   let { data: insertedOrder, error: errorOrder } = await supabase
@@ -20,7 +16,7 @@ export async function placeOrder(order, tableid, price) {
     id_order: insertedOrder[0].id_order,
     id_dish: item.id,
     notes: item.notes,
-    state: item.id === 3 ? "Ready" : "Not Ready",
+    state: item.id_category === 3 ? "Ready" : "Not Ready",
   }));
 
   const { error: errorContain } = await supabase
@@ -44,7 +40,6 @@ export async function placeOrder(order, tableid, price) {
 
   const new_points = Math.floor(pointsUser[0].points + price / 10);
 
-  console.log(new_points);
   const { error: errorUpdate } = await supabase
     .from("user")
     .update({ points: new_points })
@@ -69,25 +64,4 @@ export async function getEmptyTable() {
   if (error) console.log("No tables found");
 
   return tables;
-}
-
-export async function getOrdersUser(id) {
-  let { data: orders, error } = await supabase
-    .from("order")
-    .select("*")
-    .eq("order.id_user", id);
-
-  if (error) console.log("Error fetching orders:", error);
-
-  const orderIds = orders.map((item) => item.id_order);
-
-  let { data: contains, error: errorContains } = await supabase
-    .from("contains")
-    .select("id_dish")
-    .in("id_order", orderIds);
-
-  if (errorContains) console.log("Error fetching orders:", errorContains);
-
-  console.log(contains);
-  //return orders;
 }
