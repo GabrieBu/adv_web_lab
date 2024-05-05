@@ -5,7 +5,6 @@ import Sidebar from "../components/Sidebar";
 import { useState } from "react";
 import Orders from "../components/Orders";
 import AdminTables from "../components/AdminTables";
-import Payment from "../components/Payment";
 import Manage from "../components/Manage";
 
 function AdminLayout() {
@@ -16,7 +15,7 @@ function AdminLayout() {
   if (tab === 0) {
     content = <Orders />;
   } else if (tab === 1) {
-    content = <Payment />;
+    content = <p>Payment</p>;
   } else if (tab === 2) {
     content = <Manage />;
   } else if (tab === 3) {
