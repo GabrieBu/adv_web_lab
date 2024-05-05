@@ -85,7 +85,7 @@ export async function getOrdersCooker(id) {
   const { data: containsData, error: containsError } = await supabase
     .from("contains")
     .select("*")
-    .eq("state", "Not Ready")
+    .eq("state", "Not Ready") //edit here
     .in("id_order", orderIds);
 
   if (containsError) {
