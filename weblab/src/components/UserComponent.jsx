@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { resetPassword } from "../services/db/authentication/apiAuth";
 import Loader from "../loaders/Loader";
 import { useAuthUser } from "../hooks/useAuthUser";
 import History from "./History";
@@ -8,7 +9,7 @@ function UserComponent() {
   const [showEdit, setShowEdit] = useState(false);
   const [validation_resetPassword, setValidation_resetPassword] = useState("");
 
-  function resetPassword() {
+  function handleResetPassword() {
     resetPassword(user.email);
     setValidation_resetPassword("Email sent");
   }
@@ -16,9 +17,9 @@ function UserComponent() {
   if (isLoading) return <Loader />;
   return (
     <div className="user-component">
-      <button className="edit-button"
-        onClick={() => setShowEdit(!showEdit)}
-      >Edit</button>
+      <button className="edit-button" onClick={() => setShowEdit(!showEdit)}>
+        Edit
+      </button>
       <div className="welcome-section">
         <h1>Welcome</h1>
         <h2>
@@ -28,19 +29,24 @@ function UserComponent() {
       <hr />
       <div className="user-info">
         <h3>
-          <p><b>Username </b>{user_auth.username}</p>
+          <p>
+            <b>Username </b>
+            {user_auth.username}
+          </p>
           {showEdit && (
             <div>
-              <button 
-              type="button"
-              className="btn btn-success"
-              onClick={resetPassword}>Reset Password</button>
+              <button
+                type="button"
+                className="btn btn-success"
+                onClick={handleResetPassword}
+              >
+                Reset Password
+              </button>
               {validation_resetPassword && (
                 <p className="text-success">{validation_resetPassword}</p>
               )}
             </div>
           )}
-          
         </h3>
         <br />
         <h3>

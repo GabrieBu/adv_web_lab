@@ -13,6 +13,26 @@ function KitchenLayout({ id }) {
     queryFn: () => getOrdersCooker(id),
   });
 
+  // Inline Styles
+  const styles = {
+    table: {
+      width: "100%",
+      borderCollapse: "collapse",
+      boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+    },
+    header: {
+      backgroundColor: "orange",
+      color: "white",
+      padding: "10px",
+      fontSize: "16px",
+    },
+    row: {
+      textAlign: "left",
+      padding: "8px",
+      borderBottom: "1px solid #ddd",
+    },
+  };
+
   useEffect(() => {
     if (data) {
       const initialMergedData = data.containsData.map((containsItem) => {
@@ -62,7 +82,48 @@ function KitchenLayout({ id }) {
   if (isLoading) return <Loader />;
 
   return (
-    <div className="table-responsive">
+    <div>
+      <table className="table" style={styles.table}>
+        <thead className="thead-light">
+          <tr>
+            <th style={styles.header}>Mark as Ready</th>
+            <th style={styles.header}>Dish Name</th>
+            <th style={styles.header}>Order Time</th>
+            <th style={styles.header}>Table Number</th>
+            <th style={styles.header}>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          {merged_data?.map((item, index) => (
+            <tr key={index}>
+              <td style={styles.row}>
+                <input
+                  type="checkbox"
+                  onChange={(event) =>
+                    handleCheckboxChange(
+                      index,
+                      item.id_order,
+                      item.id_dish,
+                      event
+                    )
+                  }
+                />
+              </td>
+              <td style={styles.row}>{item.dishName}</td>
+              <td style={styles.row}>
+                {item.createdAt.split(":").slice(0, 2).join(":")}
+              </td>
+              <td style={styles.row}>{item.tableId}</td>
+              <td style={styles.row}>{item.notes}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+/* <div className="table-responsive">
       <table className="table table-striped table-bordered">
         <thead className="thead-light">
           <tr>
@@ -97,9 +158,7 @@ function KitchenLayout({ id }) {
           ))}
         </tbody>
       </table>
-    </div>
-  );
-}
+    </div> */
 
 KitchenLayout.propTypes = {
   id: PropTypes.string.isRequired,

@@ -14,6 +14,26 @@ function WaiterLayout({ id }) {
     queryFn: () => getOrdersWaiter(id),
   });
 
+  // Inline Styles
+  const styles = {
+    table: {
+      width: "100%",
+      borderCollapse: "collapse",
+      boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+    },
+    header: {
+      backgroundColor: "orange",
+      color: "white",
+      padding: "10px",
+      fontSize: "16px",
+    },
+    row: {
+      textAlign: "left",
+      padding: "8px",
+      borderBottom: "1px solid #ddd",
+    },
+  };
+
   useEffect(() => {
     if (!isLoading && data) {
       const initialMergedData = data.containsData.map((containsItem) => {
@@ -71,21 +91,21 @@ function WaiterLayout({ id }) {
 
   return (
     <div className="table-responsive">
-      <table className="table table-striped table-bordered">
+      <table className="table" style={styles.table}>
         <thead className="thead-light">
           <tr>
-            <th>Mark as Served</th>
-            <th>Dish Name</th>
-            <th>Order Time</th>
-            <th>Table Number</th>
-            <th>Notes</th>
-            <th>Ready</th>
+            <th style={styles.header}>Mark as Served</th>
+            <th style={styles.header}>Dish Name</th>
+            <th style={styles.header}>Order Time</th>
+            <th style={styles.header}>Table Number</th>
+            <th style={styles.header}>Notes</th>
+            <th style={styles.header}>Ready</th>
           </tr>
         </thead>
         <tbody>
           {merged_data?.map((item, index) => (
             <tr key={index}>
-              <td>
+              <td style={styles.row}>
                 <input
                   type="checkbox"
                   onChange={(event) =>
@@ -98,11 +118,13 @@ function WaiterLayout({ id }) {
                   }
                 />
               </td>
-              <td>{item.dishName}</td>
-              <td>{item.createdAt.split(":").slice(0, 2).join(":")}</td>
-              <td>{item.tableId}</td>
-              <td>{item.notes}</td>
-              <td>{item.state}</td>
+              <td style={styles.row}>{item.dishName}</td>
+              <td style={styles.row}>
+                {item.createdAt.split(":").slice(0, 2).join(":")}
+              </td>
+              <td style={styles.row}>{item.tableId}</td>
+              <td style={styles.row}>{item.notes}</td>
+              <td style={styles.row}>{item.state}</td>
             </tr>
           ))}
         </tbody>

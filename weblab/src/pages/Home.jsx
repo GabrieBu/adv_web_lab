@@ -46,7 +46,7 @@ function Home() {
 
   return (
     <div>
-      <ProfileBar />
+      <ProfileBar active_page="home" />
       <div style={{ padding: "10px" }}>
         <nav className="navbar navbar-light bg-light">
           <div style={{ position: "flex" }}>
