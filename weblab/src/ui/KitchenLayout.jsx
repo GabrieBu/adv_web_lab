@@ -111,7 +111,7 @@ function KitchenLayout({ id }) {
               </td>
               <td style={styles.row}>{item.dishName}</td>
               <td style={styles.row}>
-                {item.createdAt.split(":").slice(0, 2).join(":")}
+                {item.createdAt.split("T")[1].split(".")[0].slice(0, 5)}
               </td>
               <td style={styles.row}>{item.tableId}</td>
               <td style={styles.row}>{item.notes}</td>

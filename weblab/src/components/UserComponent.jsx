@@ -3,11 +3,30 @@ import { resetPassword } from "../services/db/authentication/apiAuth";
 import Loader from "../loaders/Loader";
 import { useAuthUser } from "../hooks/useAuthUser";
 import History from "./History";
+import { useForm } from "react-hook-form";
+import {
+  updateUsername,
+  updateName,
+  updateSurname,
+} from "../services/db/profile/apiProfile";
 
 function UserComponent() {
+  const { register, handleSubmit } = useForm();
   const { user_auth, user, isLoading } = useAuthUser();
   const [showEdit, setShowEdit] = useState(false);
   const [validation_resetPassword, setValidation_resetPassword] = useState("");
+
+  async function onSubmit(obj) {
+    if (obj.username && obj.username !== user_auth.username) {
+      await updateUsername(obj.username, user_auth.id);
+    }
+    if (obj.name && obj.name !== user_auth.name) {
+      await updateName(obj.name, user_auth.id);
+    }
+    if (obj.surname && obj.surname !== user_auth.surname) {
+      await updateSurname(obj.surname, user_auth.id);
+    }
+  }
 
   function handleResetPassword() {
     resetPassword(user.email);
@@ -35,6 +54,49 @@ function UserComponent() {
           </p>
           {showEdit && (
             <div>
+              <div>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <label htmlFor="username">Username: {" "}</label>
+                  <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    defaultValue={user_auth.username}
+                    {...register("username", {
+                      required: "This field is required",
+                    })}
+                  />
+                  <br />
+
+                  <label htmlFor="name">Name:{" "} </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    defaultValue={user_auth.name}
+                    {...register("name", {
+                      required: "This field is required",
+                    })}
+                  />
+                  <br />
+
+                  <label htmlFor="surname">Surname:{" "}</label>
+                  <input
+                    type="text"
+                    id="surname"
+                    name="surname"
+                    defaultValue={user_auth.surname}
+                    {...register("surname", {
+                      required: "This field is required",
+                    })}
+                  />
+                  <br />
+
+                  <button type="submit" value="Submit">
+                    Update
+                  </button>
+                </form>
+              </div>
               <button
                 type="button"
                 className="btn btn-success"

@@ -47,3 +47,38 @@ export async function getOrdersUser(id) {
 
   return { orders, contains, dishes };
 }
+
+export async function updateUsername(new_username, id) {
+  const { error } = await supabase
+    .from("user")
+    .update({ username: new_username })
+    .eq("id", id);
+
+  if (error) {
+    console.log("Error updating username");
+    return;
+  }
+}
+
+export async function updateName(new_name, id) {
+  const { error } = await supabase
+    .from("user")
+    .update({ name: new_name })
+    .eq("id", id);
+
+  if (error) {
+    console.log("Error updating name");
+    return;
+  }
+}
+export async function updateSurname(new_surname, id) {
+  const { error } = await supabase
+    .from("user")
+    .update({ surname: new_surname })
+    .eq("id", id);
+
+  if (error) {
+    console.log("Error updating surname");
+    return;
+  }
+}

@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getOrdersUser } from "../services/db/profile/apiProfile";
 import PropTypes from "prop-types";
 import Loader from "../loaders/Loader";
-import React, { useState } from 'react';  // Import useState for managing local state
+import { useState } from "react"; // Import useState for managing local state
 
 function History({ id }) {
   const { data, isLoading } = useQuery({
@@ -31,9 +31,9 @@ function History({ id }) {
     });
 
     const totalAmount = orderDishes.reduce(
-             (total, dish) => total + dish.selling_price,
-             0
-          );
+      (total, dish) => total + dish.selling_price,
+      0
+    );
 
     return {
       ...order,
@@ -56,8 +56,11 @@ function History({ id }) {
       <h2>Order History</h2>
       {mergedOrders.map((order, index) => (
         <div key={index}>
-          <p style={{ cursor: 'pointer' }} onClick={() => toggleOrder(order.id_order)}>
-            Order #{order.id_order} -View details
+          <p
+            style={{ cursor: "pointer" }}
+            onClick={() => toggleOrder(order.id_order)}
+          >
+            {order.created_at.split("T")[0]} <b> View details</b>
           </p>
           {visibleOrder === order.id_order && (
             <div>
@@ -65,11 +68,12 @@ function History({ id }) {
               <ul>
                 {order.dishes.map((dish, index) => (
                   <li key={index}>
-                    {dish.name} - Quantity: {dish.quantity} - Price: ${dish.selling_price} each
+                    {dish.name} - Quantity: {dish.quantity} - Price: $
+                    {dish.selling_price} each
                   </li>
                 ))}
               </ul>
-              <p>Total Amount: ${order.totalAmount}</p>
+              <p>Total Amount: ${order.totalAmount.toFixed(2)}</p>
             </div>
           )}
         </div>
@@ -83,5 +87,3 @@ History.propTypes = {
 };
 
 export default History;
-
-
