@@ -48,10 +48,6 @@ function UserComponent() {
       <hr />
       <div className="user-info">
         <h3>
-          <p>
-            <b>Username </b>
-            {user_auth.username}
-          </p>
           {showEdit && (
             <div>
               <div>

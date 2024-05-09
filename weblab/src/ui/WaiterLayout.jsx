@@ -1,10 +1,12 @@
-import { getOrdersWaiter } from "../services/db/staff/apiStaff";
+import {
+  getOrdersWaiter,
+  setStateOrderCompleted,
+} from "../services/db/staff/apiStaff";
 import { useQuery } from "@tanstack/react-query";
 import PropTypes from "prop-types";
 import Loader from "../loaders/Loader";
 import { useState, useEffect } from "react";
 import { setStateDishId } from "../services/db/staff/apiStaff";
-import { setStateOrderReadyForPaying } from "../services/db/staff/apiStaff";
 
 function WaiterLayout({ id }) {
   const [merged_data, setMergedData] = useState();
@@ -80,7 +82,7 @@ function WaiterLayout({ id }) {
 
     // If all entries for the order are in the "Served" state, update the order state
     if (allServed) {
-      await setStateOrderReadyForPaying(id_order);
+      await setStateOrderCompleted(id_order);
     }
 
     await setStateDishId(id_order, id_dish, value);

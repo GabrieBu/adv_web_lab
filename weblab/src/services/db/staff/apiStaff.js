@@ -151,25 +151,36 @@ export async function setStateDishId(id_order, id_dish, new_state) {
 }
 
 export async function getOrdersToPay() {
-  const { data, error } = await supabase
+  const { data: orders, error } = await supabase
     .from("order")
     .select("*")
-    .eq("state", "Ready For Paying")
+    .eq("state", "Completed")
     .order("id_table", { ascending: true });
 
   if (error) {
-    console.log("Error Selecting orders");
+    console.log("Error selecting orders to be paid:", error.message);
     return;
   }
 
-  console.log("data", data);
-  return data;
+  const orderIds = orders?.map((item) => item.id_user);
+
+  const { data: users, error: usersError } = await supabase
+    .from("user")
+    .select("*")
+    .in("id", orderIds);
+
+  if (usersError) {
+    console.log("Error selecting users");
+    return;
+  }
+
+  return { orders, users };
 }
 
-export async function setStateOrderReadyForPaying(id_order) {
+export async function setStateOrderCompleted(id_order) {
   const { error: oError } = await supabase
     .from("order")
-    .update({ state: "Ready For Paying" })
+    .update({ state: "Complete" })
     .eq("id_order", id_order);
 
   if (oError) {
@@ -278,5 +289,26 @@ export async function updateOrderStaff(orderId, staffId, isAssigned) {
     if (error) {
       console.log("Error deleting");
     }
+  }
+}
+
+export async function markAsPaid(id_order, id_table) {
+  const { error: oError } = await supabase
+    .from("order")
+    .update({ state: "Paid" })
+    .eq("id_order", id_order);
+
+  if (oError) {
+    console.log("Error Updating state order");
+    return;
+  }
+  const { error: tableError } = await supabase
+    .from("table")
+    .update({ state: true }) //empty
+    .eq("id_table", id_table);
+
+  if (tableError) {
+    console.log("Error Updating state table");
+    return;
   }
 }

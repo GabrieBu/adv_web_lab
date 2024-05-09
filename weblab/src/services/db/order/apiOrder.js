@@ -53,7 +53,7 @@ export async function placeOrder(order, tableid, price) {
   return;
 }
 
-export async function getEmptyTable() {
+export async function getNotEmptyTable() {
   // empty is true
   let { data: tables, error } = await supabase
     .from("table")

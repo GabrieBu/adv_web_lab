@@ -1,5 +1,5 @@
 import useOrder from "../hooks/useOrder";
-import { getEmptyTable, placeOrder } from "../services/db/order/apiOrder";
+import { getNotEmptyTable, placeOrder } from "../services/db/order/apiOrder";
 import useTitle from "../hooks/useTitle";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../loaders/Loader";
@@ -22,7 +22,7 @@ function Order() {
 
   const { data: tables, isLoading: isLoadingaTables } = useQuery({
     queryKey: ["tables"],
-    queryFn: getEmptyTable,
+    queryFn: getNotEmptyTable,
   });
 
   const removeDish = (index) => {

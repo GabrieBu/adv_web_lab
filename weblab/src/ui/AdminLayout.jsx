@@ -6,7 +6,7 @@ import { useState } from "react";
 import Orders from "../components/Orders";
 import AdminTables from "../components/AdminTables";
 import Manage from "../components/Manage";
-
+import Payment from "../components/Payment";
 function AdminLayout() {
   const [tab, setTab] = useState(4);
   useTitle("Staff Dashboard");
@@ -15,7 +15,7 @@ function AdminLayout() {
   if (tab === 0) {
     content = <Orders />;
   } else if (tab === 1) {
-    content = <p>Payment</p>;
+    content = <Payment />;
   } else if (tab === 2) {
     content = <Manage />;
   } else if (tab === 3) {
