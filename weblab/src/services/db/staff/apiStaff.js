@@ -77,7 +77,8 @@ export async function getOrdersCooker(id) {
     .from("order")
     .select("*")
     .eq("state", "Preparing")
-    .in("id_order", orderIds);
+    .in("id_order", orderIds)
+    .order("created_at");
 
   if (ordersError) throw new Error("Error fetching orders");
 
@@ -154,27 +155,50 @@ export async function getOrdersToPay() {
   const { data: orders, error } = await supabase
     .from("order")
     .select("*")
-    .eq("state", "Completed")
+    .eq("state", "Complete")
     .order("id_table", { ascending: true });
+  //.order("created_at");
 
   if (error) {
     console.log("Error selecting orders to be paid:", error.message);
     return;
   }
 
-  const orderIds = orders?.map((item) => item.id_user);
+  const orderUsers = orders?.map((item) => item.id_user);
 
   const { data: users, error: usersError } = await supabase
     .from("user")
     .select("*")
-    .in("id", orderIds);
+    .in("id", orderUsers);
 
   if (usersError) {
     console.log("Error selecting users");
     return;
   }
 
-  return { orders, users };
+  const orderIds = orders?.map((item) => item.id_order);
+  console.log(orderIds);
+  const { data: containsData, error: containsError } = await supabase
+    .from("contains")
+    .select("*")
+    .in("id_order", orderIds);
+
+  if (containsError) {
+    throw new Error("Error fetching contains data for orders");
+  }
+
+  const dishIds = containsData?.map((containsItem) => containsItem.id_dish);
+
+  const { data: dishesData, error: dishesError } = await supabase
+    .from("food_drink")
+    .select("*")
+    .in("id_food_drink", dishIds); // Include only dishes with id_food_drink in dishIds
+
+  if (dishesError) {
+    throw new Error("Error fetching dish names");
+  }
+
+  return { orders, users, dishes: dishesData, contains: containsData };
 }
 
 export async function setStateOrderCompleted(id_order) {
