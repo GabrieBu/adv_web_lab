@@ -45,9 +45,9 @@ function History({ id }) {
 
   const toggleOrder = (id_order) => {
     if (visibleOrder === id_order) {
-      setVisibleOrder(null); // If clicked again, it will collapse
+      setVisibleOrder(null);
     } else {
-      setVisibleOrder(id_order); // Otherwise, expand the clicked order
+      setVisibleOrder(id_order);
     }
   };
 
@@ -68,12 +68,12 @@ function History({ id }) {
               <ul>
                 {order.dishes.map((dish, index) => (
                   <li key={index}>
-                    {dish.name} - Quantity: {dish.quantity} - Price: $
-                    {dish.selling_price} each
+                    {dish.name + " "}
+                    {dish.selling_price} PLN
                   </li>
                 ))}
               </ul>
-              <p>Total Amount: ${order.totalAmount.toFixed(2)}</p>
+              <p>Total Amount: {order.totalAmount.toFixed(2)} PLN</p>
             </div>
           )}
         </div>

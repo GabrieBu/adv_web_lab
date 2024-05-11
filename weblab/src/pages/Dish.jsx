@@ -7,12 +7,15 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Loader from "../loaders/Loader";
 import useOrder from "../hooks/useOrder";
 import ProfileBar from "../components/ProfileBar";
+import { useSubmitted } from "../contexts/SubmittedContext";
+import useUpdatedOrder from "../hooks/useUpdatedOrder";
 
 export default function Dish() {
   const { order, setOrder } = useOrder();
+  const { u_order, setUOrder } = useUpdatedOrder();
   const [count, setCount] = useState(1);
   const [note, setNote] = useState("");
-
+  const { submitted } = useSubmitted();
   const { dishId } = useParams();
 
   const { data: dish, isLoading: isLoadingSelect } = useQuery({
@@ -25,6 +28,28 @@ export default function Dish() {
   };
 
   function addToOrder() {
+    console.log("submitted in dish: ", submitted);
+    if (submitted) {
+      const newUpdatedOrder = [...u_order.dishes];
+
+      for (let i = 0; i < count; i++) {
+        newUpdatedOrder.push({
+          name: dish[0].name,
+          price: dish[0].selling_price,
+          image: dish[0].image,
+          id: dishId,
+          notes: note,
+          id_category: dish[0].id_category,
+        });
+      }
+
+      setUOrder((prevOrder) => ({
+        ...prevOrder,
+        dishes: newUpdatedOrder,
+      }));
+      return;
+    }
+
     const newOrder = [...order.dishes];
 
     for (let i = 0; i < count; i++) {
