@@ -52,7 +52,7 @@ function UserComponent() {
             <div>
               <div>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                  <label htmlFor="username">Username: {" "}</label>
+                  <label className="user-component" htmlFor="username">Username: {" "}</label>
                   <input
                     type="text"
                     id="username"
@@ -64,7 +64,7 @@ function UserComponent() {
                   />
                   <br />
 
-                  <label htmlFor="name">Name:{" "} </label>
+                  <label className="user-component" htmlFor="name">Name:{" "} </label>
                   <input
                     type="text"
                     id="name"
@@ -76,7 +76,7 @@ function UserComponent() {
                   />
                   <br />
 
-                  <label htmlFor="surname">Surname:{" "}</label>
+                  <label className="user-component" htmlFor="surname">Surname:{" "}</label>
                   <input
                     type="text"
                     id="surname"
@@ -88,7 +88,7 @@ function UserComponent() {
                   />
                   <br />
 
-                  <button type="submit" value="Submit">
+                  <button className="submit-button" type="submit" value="Submit">
                     Update
                   </button>
                 </form>
@@ -133,12 +133,24 @@ function UserComponent() {
         .edit-button {
           padding: 10px 20px;
           font-size: 1rem;
-          background-color: #5cb85c; /* Bootstrap 'btn-success' color */
+          background-color: #198754; /* Bootstrap 'btn-success' color */
           color: white;
           border: none;
           border-radius: 5px;
           cursor: pointer;
           box-shadow: 0 2px;
+        }
+
+        .submit-button {
+          padding: 10px 20px;
+          font-size: 1rem;
+          background-color: #198754; /* Bootstrap 'btn-success' color */
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          box-shadow: 0 2px;
+          margin-bottom: 20px;
         }
 
         .welcome-section {
