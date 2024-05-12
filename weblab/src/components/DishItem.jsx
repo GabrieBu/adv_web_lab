@@ -79,11 +79,21 @@ function DishItem({ dishId }) {
     setShowDescription(!showDescription);
   };
 
+  const dishItemTypeStyle = {
+    color: "#e2b35c",
+    fontSize: "1rem",
+    margin: "4px 0",
+  };
+  
+
   return (
     <div style={dishItemStyle}>
       <div style={dishContentStyle}>
         <h3 style={dishNameStyle}>{dishData.name}</h3>
+        {/* // Added tags for dish type (spicy, vegan, alcohol) */}
+        <p style={dishItemTypeStyle}>{dishData.item_type}</p>  
         <p style={dishPriceStyle}>PLN {dishData.selling_price}</p>
+        
       </div>
       <div style={dishImageContainerStyle} onClick={toggleDescription}>
         <img
