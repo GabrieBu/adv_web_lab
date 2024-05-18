@@ -7,8 +7,9 @@ import Orders from "../components/Orders";
 import AdminTables from "../components/AdminTables";
 import Manage from "../components/Manage";
 import Payment from "../components/Payment";
+import Charts from "../components/Charts";
 function AdminLayout() {
-  const [tab, setTab] = useState(4);
+  const [tab, setTab] = useState(3);
   useTitle("Staff Dashboard");
 
   let content;
@@ -19,7 +20,7 @@ function AdminLayout() {
   } else if (tab === 2) {
     content = <Manage />;
   } else if (tab === 3) {
-    content = <p>charts</p>;
+    content = <Charts />;
   } else {
     content = <AdminTables />;
   }
