@@ -65,7 +65,7 @@ function History({ id }) {
           </p>
           {visibleOrder === order.id_order && (
             <div>
-              <p>Dishes:</p>
+              <p style={{ fontWeight: "bold"}}>Dishes:</p>
               <ul>
                 {order.dishes.map((dish, index) => (
                   <li key={index}>
@@ -74,10 +74,10 @@ function History({ id }) {
                   </li>
                 ))}
               </ul>
-              <p>Total Amount: {order.totalAmount.toFixed(2)} PLN</p>
-              <p>Points used: {order.points_used}</p>
-              <p>
-                <b>Amount paid</b>:{" "}
+              <p style={{ fontWeight: "bold"}}>Total Amount: {order.totalAmount.toFixed(2)} PLN</p>
+              <p style={{ fontWeight: "bold"}}>Points used: {order.points_used}</p>
+              <p style={{ fontWeight: "bold"}}>
+                <b >Amount paid</b>:{" "}
                 {(order.totalAmount.toFixed(2) - order.points_used).toFixed(2)}{" "}
                 PLN
               </p>

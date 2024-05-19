@@ -5,6 +5,7 @@ import { useAuthUser } from "../hooks/useAuthUser";
 import History from "./History";
 import { useForm } from "react-hook-form";
 import { updateName, updateSurname } from "../services/db/profile/apiProfile";
+import toast from "react-hot-toast";
 
 function UserComponent() {
   const { register, handleSubmit } = useForm();
@@ -15,6 +16,7 @@ function UserComponent() {
   async function onSubmit(obj) {
     if (obj.name && obj.name !== user_auth.name) {
       await updateName(obj.name, user_auth.id);
+      toast.success(" Profile update successfully");
     }
     if (obj.surname && obj.surname !== user_auth.surname) {
       await updateSurname(obj.surname, user_auth.id);
@@ -29,7 +31,8 @@ function UserComponent() {
   if (isLoading) return <Loader />;
   return (
     <div className="user-component">
-      <button className="edit-button" onClick={() => setShowEdit(!showEdit)}>
+      <button className="edit-button" onClick={() => setShowEdit(!showEdit)}
+      style={{ backgroundColor: "#008000", color: "white" ,borderRadius: "10px"}}>
         Edit
       </button>
       <div className="welcome-section">
@@ -45,15 +48,16 @@ function UserComponent() {
             <div>
               <div>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                  <p>Username: {user_auth.username}</p>
+                  <p style={{marginLeft: "20px",}}>Username: {user_auth.username}</p>
 
-                  <label className="user-component" htmlFor="name">
+                  <label className="user-component" htmlFor="name" >
                     Name:{" "}{" "}
-                  </label>
+                  </label><br />
                   <input
                     type="text"
                     id="name"
                     name="name"
+                    style={{borderRadius: "10px",marginLeft: "20px",}}
                     defaultValue={user_auth.name}
                     {...register("name", {
                       required: "This field is required",
@@ -63,11 +67,12 @@ function UserComponent() {
 
                   <label className="user-component" htmlFor="surname">
                     Surname:{" "}
-                  </label>
+                  </label><br />
                   <input
                     type="text"
                     id="surname"
                     name="surname"
+                    style={{borderRadius: "10px",marginLeft: "20px"}}
                     defaultValue={user_auth.surname}
                     {...register("surname", {
                       required: "This field is required",
@@ -79,6 +84,8 @@ function UserComponent() {
                     className="submit-button"
                     type="submit"
                     value="Submit"
+                    style={{ marginLeft: "20px",marginBottom: "10px"}}
+            
                   >
                     Update
                   </button>
@@ -88,24 +95,25 @@ function UserComponent() {
                 type="button"
                 className="btn btn-success"
                 onClick={handleResetPassword}
+                style={{ backgroundColor: "#008000", color: "white" ,borderRadius: "10px",marginLeft: "20px",marginBottom: "10px"}}
               >
                 Reset Password
               </button>
               {validation_resetPassword && (
-                <p className="text-success">{validation_resetPassword}</p>
+                <p className="text-success" style={{ marginLeft: "20px",color: "#008000"}}>{validation_resetPassword}</p>
               )}
             </div>
           )}
         </h3>
         <br />
         <h3>
-          <b className="text-success">Earned Points </b>
+          <h1 className="text-success" style={{ color: "#008000" }}>Earned Points </h1>
           {user_auth.points}
         </h3>
       </div>
       <hr />
       <div className="history">
-        <h1>Past orders:</h1>
+        <h1 style={{ color: "#008000" }}>Past orders:</h1>
         <History id={user.id} />
       </div>
       <hr />
@@ -135,13 +143,17 @@ function UserComponent() {
         .submit-button {
           padding: 10px 20px;
           font-size: 1rem;
-          background-color: #198754; /* Bootstrap 'btn-success' color */
+          // background-color: #198754; /* Bootstrap 'btn-success' color */
           color: white;
           border: none;
-          border-radius: 5px;
           cursor: pointer;
           box-shadow: 0 2px;
           margin-bottom: 20px;
+          margin-top: 10px;
+          background-color: #008000; 
+          color: white ;
+          border-radius: 10px ;
+          marginLeft: "20px"
         }
 
         .welcome-section {
