@@ -18,11 +18,13 @@ import ProfileBar from "../components/ProfileBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useSubmitted } from "../contexts/SubmittedContext";
+import { useUser } from "../hooks/useUser";
 
 function Order() {
   const { order, setOrder } = useOrder();
   const { submitted, setSubmitted } = useSubmitted();
   const { u_order, setUOrder } = useUpdatedOrder();
+  const { id } = useUser();
 
   order.tableId = "";
   const { register, handleSubmit } = useForm();
@@ -68,7 +70,8 @@ function Order() {
       const id_order = await placeOrder(
         order,
         data.selectedTable,
-        price.toFixed(2)
+        price.toFixed(2),
+        id
       );
       order.id_order = id_order;
       toast.success("Order placed successfully");
@@ -175,6 +178,7 @@ function Order() {
   };
 
   const showToast = () => {
+    setSubmitted(false);
     toast.custom(
       <div
         style={{
@@ -316,7 +320,6 @@ function Order() {
             </div>
 
             {/* Add more Button */}
-
             {submitted && (
               <div style={{ color: "black" }}>
                 {u_order?.dishes?.map((dish, index) => (
@@ -461,24 +464,26 @@ function Order() {
               )}
             </div>
           )}
-          {submitted && u_order.dishes.length === 0 && (
-            <div
-              style={{
-                position: "fixed",
-                bottom: "110px",
-                left: "50%",
-                transform: "translateX(-50%)",
-              }}
-            >
-              <button
-                type="button"
-                className="btn btn-success btn-lg"
-                onClick={showToast}
+          {submitted &&
+            u_order.dishes.length === 0 &&
+            id !== "c11289ee-a8e7-4fcd-a83d-d5f95a5e9fe5" && (
+              <div
+                style={{
+                  position: "fixed",
+                  bottom: "110px",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                }}
               >
-                Confirm to pay
-              </button>
-            </div>
-          )}
+                <button
+                  type="button"
+                  className="btn btn-success btn-lg"
+                  onClick={showToast}
+                >
+                  Confirm to pay
+                </button>
+              </div>
+            )}
           {submitted && u_order.dishes.length > 0 && (
             <div
               style={{

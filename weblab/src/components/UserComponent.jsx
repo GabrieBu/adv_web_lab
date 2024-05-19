@@ -4,11 +4,7 @@ import Loader from "../loaders/Loader";
 import { useAuthUser } from "../hooks/useAuthUser";
 import History from "./History";
 import { useForm } from "react-hook-form";
-import {
-  updateUsername,
-  updateName,
-  updateSurname,
-} from "../services/db/profile/apiProfile";
+import { updateName, updateSurname } from "../services/db/profile/apiProfile";
 
 function UserComponent() {
   const { register, handleSubmit } = useForm();
@@ -17,9 +13,6 @@ function UserComponent() {
   const [validation_resetPassword, setValidation_resetPassword] = useState("");
 
   async function onSubmit(obj) {
-    if (obj.username && obj.username !== user_auth.username) {
-      await updateUsername(obj.username, user_auth.id);
-    }
     if (obj.name && obj.name !== user_auth.name) {
       await updateName(obj.name, user_auth.id);
     }
@@ -52,19 +45,11 @@ function UserComponent() {
             <div>
               <div>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                  <label className="user-component" htmlFor="username">Username: {" "}</label>
-                  <input
-                    type="text"
-                    id="username"
-                    name="username"
-                    defaultValue={user_auth.username}
-                    {...register("username", {
-                      required: "This field is required",
-                    })}
-                  />
-                  <br />
+                  <p>Username: {user_auth.username}</p>
 
-                  <label className="user-component" htmlFor="name">Name:{" "} </label>
+                  <label className="user-component" htmlFor="name">
+                    Name:{" "}{" "}
+                  </label>
                   <input
                     type="text"
                     id="name"
@@ -76,7 +61,9 @@ function UserComponent() {
                   />
                   <br />
 
-                  <label className="user-component" htmlFor="surname">Surname:{" "}</label>
+                  <label className="user-component" htmlFor="surname">
+                    Surname:{" "}
+                  </label>
                   <input
                     type="text"
                     id="surname"
@@ -88,7 +75,11 @@ function UserComponent() {
                   />
                   <br />
 
-                  <button className="submit-button" type="submit" value="Submit">
+                  <button
+                    className="submit-button"
+                    type="submit"
+                    value="Submit"
+                  >
                     Update
                   </button>
                 </form>

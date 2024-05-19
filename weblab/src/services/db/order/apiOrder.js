@@ -42,60 +42,27 @@ export async function editOrder(order, id_order, price) {
   }
 }
 
-function generatePassword() {
-  const specialCharacters = "!@#$%^&*()_+[]{}|;:,.<>?";
-  const numbers = "0123456789";
-  const upperCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+export async function test() {
+  const { data: user_anon, error: error_anon } = await supabase
+    .from("user")
+    .select("id")
+    .eq("id", "c11289ee-a8e7-4fcd-a83d-d5f95a5e9fe5");
+  if (error_anon) {
+    console.log("Error Anon");
+    return;
+  }
 
-  const randomSpecialCharacter =
-    specialCharacters[Math.floor(Math.random() * specialCharacters.length)];
-  const randomNumber = numbers[Math.floor(Math.random() * numbers.length)];
-  const randomUpperCaseLetter =
-    upperCaseLetters[Math.floor(Math.random() * upperCaseLetters.length)];
-  const randomPasswordPart = Math.random().toString(36).slice(2, 7); // Ensures length of 5 characters
-
-  let password = `${randomUpperCaseLetter}${randomPasswordPart}${randomNumber}${randomSpecialCharacter}`;
-
-  // Shuffle the password to ensure the characters are not in a predictable order
-  password = password
-    .split("")
-    .sort(() => 0.5 - Math.random())
-    .join("");
-
-  return password;
+  return user_anon[0].id;
 }
 
-export async function placeOrder(order, tableid, price) {
-  const { data: user } = await supabase.auth.getUser();
-  var user_id = null;
-  var bool = true;
-
-  if (user === null) {
-    console.log("user_anon");
-    const pass = generatePassword();
-    console.log(pass);
-    var { data: user_anon, error } = await supabase.auth.signInWithPassword({
-      email: `${Date.now()}@anon.com`,
-      password: pass,
-    });
-
-    if (error) {
-      console.error("Error creating anonymous user", error);
-      return;
-    }
-    bool = false;
-    user_id = user_anon.user.id;
-  } else {
-    user_id = user.user.id;
-  }
-  console.log(user_id);
+export async function placeOrder(order, tableid, price, user_id) {
   let { data: insertedOrder, error: errorOrder } = await supabase
     .from("order")
     .insert({ state: "Preparing", id_table: tableid, id_user: user_id })
     .select();
 
   if (errorOrder) {
-    console.log("Error Order");
+    console.log("Error Order Placing");
     return;
   }
 
@@ -114,11 +81,12 @@ export async function placeOrder(order, tableid, price) {
     console.log("Error Contain");
     return;
   }
-  if (bool) {
+
+  if (user_id !== "c11289ee-a8e7-4fcd-a83d-d5f95a5e9fe5") {
     const { data: pointsUser, error: errorPoints } = await supabase
       .from("user")
       .select("points")
-      .eq("id", user.user.id);
+      .eq("id", user_id);
 
     if (errorPoints) {
       console.log("Error selecting points");
@@ -130,7 +98,7 @@ export async function placeOrder(order, tableid, price) {
     const { error: errorUpdate } = await supabase
       .from("user")
       .update({ points: new_points })
-      .eq("id", user.user.id);
+      .eq("id", user_id);
 
     if (errorUpdate) {
       console.log("Error Updating points");

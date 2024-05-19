@@ -78,11 +78,16 @@ function Payment() {
                     ))}
                   </ul>
                   <p>Total: {totalPrice.toFixed(2)} PLN</p>
-                  <p>User wants to pay with: {order.points_used} Points</p>
+                  {order.name !== "Anon" ? (
+                    <p>User wants to pay with: {order.points_used} Points</p>
+                  ) : (
+                    <p style={{ color: "red" }}>
+                      User can not pay with point. Not logged in
+                    </p>
+                  )}
                   <p>
                     Total to pay:{" "}
-                    {(totalPrice.toFixed(2) - order.points_used).toFixed(2)}{" "}
-                    Points
+                    {(totalPrice.toFixed(2) - order.points_used).toFixed(2)} PLN
                   </p>
                   <button
                     onClick={() => handlePay(order.id_order, order.id_table)}
