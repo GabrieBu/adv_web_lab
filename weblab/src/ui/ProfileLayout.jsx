@@ -20,7 +20,7 @@ function ProfileLayout() {
         className="logout-button"
         onClick={() => userLogout()}
         style={{
-          position: "fixed",
+          position: "absolute",
           top: "20px",
           right: "20px",
           padding: "10px 20px",
@@ -28,7 +28,7 @@ function ProfileLayout() {
           backgroundColor: "#d9534f",
           color: "white",
           border: "none",
-          borderRadius: "5px",
+          borderRadius: "10px",
           cursor: "pointer",
           boxShadow: "0 2px 4px rgba(0,0,0,.2)",
           zIndex: 1000,
