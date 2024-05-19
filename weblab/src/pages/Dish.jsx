@@ -9,6 +9,7 @@ import useOrder from "../hooks/useOrder";
 import ProfileBar from "../components/ProfileBar";
 import { useSubmitted } from "../contexts/SubmittedContext";
 import useUpdatedOrder from "../hooks/useUpdatedOrder";
+import toast from "react-hot-toast";
 
 export default function Dish() {
   const { order, setOrder } = useOrder();
@@ -67,7 +68,9 @@ export default function Dish() {
       ...prevOrder,
       dishes: newOrder,
     }));
+    toast.success("Order added successfully!");// display notification when user click add to order
   }
+  
 
   if (isLoadingSelect) return <Loader />;
   if (!dish || dish.length === 0) return <p>No dish found.</p>;
@@ -96,7 +99,7 @@ export default function Dish() {
 
       <div style={{ margin: 0, fontFamily: "Arial, sans-serif" }}>
         {/* <!-- Pizza Image --> */}
-        <div style={{ textAlign: "center", paddingTop: "50px" }}>
+        <div style={{ textAlign: "center", paddingTop: "50px" , height: "300px", overflow: "hidden"}}>
           {/* <!-- added padding to make space for the back button --> */}
           <img
             src={dishData?.image}
@@ -113,7 +116,7 @@ export default function Dish() {
           </div>
           <div style={{ fontSize: "20px", color: "green" }}>
             {dishData.selling_price}
-            <span style={{ fontSize: "16px", color: "grey" }}>
+            <span style={{ fontSize: "16px", color: "grey" , marginLeft: "10px"}}>
               Earn {(dishData.selling_price + 0.01) / 10} points
             </span>
           </div>
@@ -129,6 +132,7 @@ export default function Dish() {
               marginTop: "8px",
               border: "1px solid #ccc",
               padding: "10px",
+              borderRadius: "10px",
             }}
           ></textarea>
 
@@ -145,6 +149,7 @@ export default function Dish() {
                 textAlign: "center",
                 backgroundColor: "#f2f2f2",
                 cursor: "pointer",
+                borderRadius: "10px",
               }}
             >
               -
@@ -159,6 +164,7 @@ export default function Dish() {
                 textAlign: "center",
                 backgroundColor: "#f2f2f2",
                 cursor: "pointer",
+                borderRadius: "10px",
               }}
             >
               +
@@ -167,13 +173,14 @@ export default function Dish() {
             <button
               onClick={addToOrder}
               style={{
-                backgroundColor: "rgb(8, 99, 29)",
+                // backgroundColor: "rgb(8, 99, 29)",
                 color: "white",
                 border: "none",
-                padding: "15px 30px",
+                // padding: "15px 30px",
                 cursor: "pointer",
                 marginLeft: "auto",
-                borderRadius: "20px",
+                borderRadius: "10px",
+                backgroundColor: "#008000",
               }}
             >
               Add to Order
@@ -183,9 +190,9 @@ export default function Dish() {
       </div>
       <Link
         to="/order"
-        style={{ position: "fixed", bottom: "70px", right: "20px" }}
+        style={{ position: "fixed", bottom: "70px", left: "50%", transform: "translateX(-50%)" }}
       >
-        <button className="btn btn-success">View Current Order</button>
+        <button className="btn btn-success" style={{ backgroundColor: "#008000", color: "white" ,borderRadius: "10px"}}>View Current Order</button>
       </Link>
     </div>
   );

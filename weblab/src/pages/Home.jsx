@@ -181,13 +181,14 @@ function Home() {
   const [selectedType, setSelectedType] = useState(0); // for id_type
   const [showFilter, setShowFilter] = useState(false);
 
+// "Side Dishes" was temperoty deleted, because it will be display to 2rd line in mobile screen , very uglyy
   const filterNames = [
     "Filter by Category",
     "Main Course",
     "Desserts",
     "Drinks",
     "First Course",
-    "Side Dishes",
+    // "Side Dishes",
   ];
 
   const typeFilters = ["Filter by Type", "Vegan", "Spicy", "Alcohol"];
@@ -248,7 +249,7 @@ function Home() {
           }}
         >
           {showFilter && (
-            <>
+            <><div style={{ width: "100%" }}>
               {filterNames.map((filter, index) => (
                 <button
                   key={index}
@@ -256,7 +257,7 @@ function Home() {
                   style={{
                     color: "black",
                     backgroundColor:
-                      selectedFilter === index ? "lightgreen" : "white",
+                      selectedFilter === index ? "lightgreen" : "lightgrey",
                     borderRadius: "10px",
                     padding: "0px 2px",
                     margin: "2px",
@@ -269,6 +270,8 @@ function Home() {
                   {filter}
                 </button>
               ))}
+               </div>
+              <div style={{ width: "100%" }}>
               {typeFilters.map((type, index) => (
                 <button
                   key={index}
@@ -276,7 +279,7 @@ function Home() {
                   style={{
                     color: "black",
                     backgroundColor:
-                      selectedType === index ? "lightblue" : "white",
+                      selectedType === index ? "lightblue" : "lightgrey",
                     borderRadius: "10px",
                     padding: "0px 2px",
                     margin: "2px",
@@ -289,6 +292,7 @@ function Home() {
                   {type}
                 </button>
               ))}
+              </div>
             </>
           )}
         </div>
@@ -318,9 +322,9 @@ function Home() {
         </div>
         <Link
           to="/order"
-          style={{ position: "fixed", bottom: "70px", right: "20px" }}
+          style={{ position: "fixed", bottom: "70px", left: "50%", transform: "translateX(-50%)" }}
         >
-          <button className="btn btn-success">View Current Order</button>
+          <button className="btn btn-success" style={{ backgroundColor: "#008000", color: "white" ,borderRadius: "10px",}}>View Current Order</button>
         </Link>
       </div>
     </div>
