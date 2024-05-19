@@ -34,7 +34,6 @@
 //   const [selectedFilter, setSelectedFilter] = useState(0);
 //   const [showFilter, setShowFilter] = useState(false);
 
-
 //   let filterNames = [
 //     "All",
 //     "Main Course",
@@ -43,7 +42,6 @@
 //     "First Course",
 //     "Side Dishes",
 //   ];
-  
 
 //   if (isLoadingDishes) return <Loader />;
 
@@ -184,23 +182,26 @@ function Home() {
   const [showFilter, setShowFilter] = useState(false);
 
   const filterNames = [
-    "Filter by Category", "Main Course", "Desserts", "Drinks", "First Course", "Side Dishes"
+    "Filter by Category",
+    "Main Course",
+    "Desserts",
+    "Drinks",
+    "First Course",
+    "Side Dishes",
   ];
 
-  const typeFilters = [
-    "Filter by Type", "Vegan", "Spicy" , "Alcohol"
-  ];
+  const typeFilters = ["Filter by Type", "Vegan", "Spicy", "Alcohol"];
 
   if (isLoadingDishes) return <Loader />;
 
   const handleFilterSelection = (index) => {
     setSelectedFilter(index);
-    setSelectedType(0); 
+    setSelectedType(0);
   };
 
   const handleTypeSelection = (index) => {
     setSelectedType(index);
-    setSelectedFilter(0); 
+    setSelectedFilter(0);
   };
 
   return (
@@ -254,11 +255,15 @@ function Home() {
                   onClick={() => handleFilterSelection(index)}
                   style={{
                     color: "black",
-                    backgroundColor: selectedFilter === index ? "lightgreen" : "white",
+                    backgroundColor:
+                      selectedFilter === index ? "lightgreen" : "white",
                     borderRadius: "10px",
                     padding: "0px 2px",
                     margin: "2px",
-                    border: selectedFilter === index ? "1px solid green" : "1px solid lightgray",
+                    border:
+                      selectedFilter === index
+                        ? "1px solid green"
+                        : "1px solid lightgray",
                   }}
                 >
                   {filter}
@@ -270,11 +275,15 @@ function Home() {
                   onClick={() => handleTypeSelection(index)}
                   style={{
                     color: "black",
-                    backgroundColor: selectedType === index ? "lightblue" : "white",
+                    backgroundColor:
+                      selectedType === index ? "lightblue" : "white",
                     borderRadius: "10px",
                     padding: "0px 2px",
                     margin: "2px",
-                    border: selectedType === index ? "1px solid blue" : "1px solid lightgray",
+                    border:
+                      selectedType === index
+                        ? "1px solid blue"
+                        : "1px solid lightgray",
                   }}
                 >
                   {type}
@@ -285,17 +294,27 @@ function Home() {
         </div>
         <p></p>
         <div>
-          {dishes?.filter(dish => {
-            const lowerCaseSearchTerm = searchTerm.toLowerCase();
-            const matchesSearchTerm = dish.name.toLowerCase().includes(lowerCaseSearchTerm);
-            const matchesCategory = selectedFilter === 0 || dish.id_category === selectedFilter;
-            const matchesType = selectedType === 0 || dish.id_type === selectedType;
+          {dishes
+            ?.filter((dish) => {
+              const lowerCaseSearchTerm = searchTerm.toLowerCase();
+              const matchesSearchTerm = dish.name
+                .toLowerCase()
+                .includes(lowerCaseSearchTerm);
+              const matchesCategory =
+                selectedFilter === 0 || dish.id_category === selectedFilter;
+              const matchesType =
+                selectedType === 0 || dish.id_type === selectedType;
 
-            return (searchTerm === "" && selectedFilter === 0 && selectedType === 0) || 
-                   (matchesSearchTerm && matchesCategory && matchesType);
-          }).map((dish) => (
-            <DishItem key={dish.id_food_drink} dishId={dish.id_food_drink} />
-          ))}
+              return (
+                (searchTerm === "" &&
+                  selectedFilter === 0 &&
+                  selectedType === 0) ||
+                (matchesSearchTerm && matchesCategory && matchesType)
+              );
+            })
+            .map((dish) => (
+              <DishItem key={dish.id_food_drink} dishId={dish.id_food_drink} />
+            ))}
         </div>
         <Link
           to="/order"

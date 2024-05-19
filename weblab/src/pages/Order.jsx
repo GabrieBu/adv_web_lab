@@ -84,18 +84,15 @@ function Order() {
 
   async function onSubmitPoint(data) {
     const points = await getPoints();
-    console.log(points);
-    console.log(data.points);
 
     if (Number(data.points) > points) {
-      toast.dismiss();
       toast.error("You don't have enough points", {
         duration: 4000,
       });
     } else {
       toast.dismiss();
       toast.success("Points used to pay", { duration: 4000 });
-      payWithPoint(Number(data.points), points);
+      payWithPoint(Number(data.points), points, order.id_order);
       setOrder({ ...order, id: null, dishes: [] });
     }
   }

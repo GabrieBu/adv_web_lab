@@ -29,7 +29,20 @@ function Orders() {
       state_waiter = "Served";
     }
 
-    return { dishName, orderTime, tableId, state_cooker, state_waiter };
+    let formattedTime = "N/A";
+    if (orderTime !== "N/A") {
+      const [datePart, timePart] = orderTime.split("T");
+      const [hours, minutes] = timePart.split(":");
+      formattedTime = `${hours}:${minutes}`;
+    }
+
+    return {
+      dishName,
+      orderTime: formattedTime,
+      tableId,
+      state_cooker,
+      state_waiter,
+    };
   });
 
   // Inline Styles
@@ -68,9 +81,7 @@ function Orders() {
         {mergedData?.map((item, index) => (
           <tr key={index}>
             <td style={styles.row}>{item.dishName}</td>
-            <td style={styles.row}>
-              {item.orderTime.split(":").slice(0, 2).join(":")}
-            </td>
+            <td style={styles.row}>{item.orderTime}</td>
             <td style={styles.row}>{item.tableId}</td>
             <td style={styles.row}>{item.state_cooker}</td>
             <td style={styles.row}>{item.state_waiter}</td>

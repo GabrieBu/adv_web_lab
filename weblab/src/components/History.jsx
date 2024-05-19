@@ -40,6 +40,7 @@ function History({ id }) {
       dishes: orderDishes,
       contains: orderContains,
       totalAmount: totalAmount,
+      points_used: order.points_used,
     };
   });
 
@@ -74,6 +75,12 @@ function History({ id }) {
                 ))}
               </ul>
               <p>Total Amount: {order.totalAmount.toFixed(2)} PLN</p>
+              <p>Points used: {order.points_used}</p>
+              <p>
+                <b>Amount paid</b>:{" "}
+                {(order.totalAmount.toFixed(2) - order.points_used).toFixed(2)}{" "}
+                PLN
+              </p>
             </div>
           )}
         </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRegister } from "../hooks/useRegister";
 import { validateEmail } from "../services/db/validation";
@@ -32,8 +32,7 @@ function Register() {
 
     if (!validateEmail(auth.email)) {
       setErrorMessages_Email("Email is not valid!");
-    }
-    else {
+    } else {
       setErrorMessages_Email("");
     }
 
@@ -51,7 +50,6 @@ function Register() {
     if (register_api(auth)) {
       setSuccessMessage("Successfully registered!");
     }
-
   }
 
   return (
@@ -60,7 +58,16 @@ function Register() {
         <div className="col-10">
           <p></p>
           <Link to="/login">
-            <FontAwesomeIcon icon={faArrowLeft} size="2x" style={{ position: "absolute", top: 10, left: 10, cursor: "pointer" }} />
+            <FontAwesomeIcon
+              icon={faArrowLeft}
+              size="2x"
+              style={{
+                position: "absolute",
+                top: 10,
+                left: 10,
+                cursor: "pointer",
+              }}
+            />
           </Link>
           <h2 className="text-success">Register</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -122,7 +129,9 @@ function Register() {
                 })}
               />
             </div>
-            {errorMessages_Email && <p className="text-danger">{errorMessages_Email}</p>}
+            {errorMessages_Email && (
+              <p className="text-danger">{errorMessages_Email}</p>
+            )}
             <p></p>
 
             <div className="form-group">
@@ -151,7 +160,9 @@ function Register() {
                 })}
               />
             </div>
-            {errorMessages_Passwords && <p className="text-danger">{errorMessages_Passwords}</p>}
+            {errorMessages_Passwords && (
+              <p className="text-danger">{errorMessages_Passwords}</p>
+            )}
             <p></p>
             <button type="register" className="btn btn-success">
               {!isLoading ? "Register" : <Loader />}

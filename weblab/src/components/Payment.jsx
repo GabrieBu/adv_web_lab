@@ -17,6 +17,7 @@ function Payment() {
       ...order,
       name: user ? user.name : null,
       surname: user ? user.surname : null,
+      points_used: order.points_used,
     };
   });
 
@@ -76,7 +77,13 @@ function Payment() {
                       </li>
                     ))}
                   </ul>
-                  <p>Total Price: {totalPrice.toFixed(2)} PLN</p>
+                  <p>Total: {totalPrice.toFixed(2)} PLN</p>
+                  <p>User wants to pay with: {order.points_used} Points</p>
+                  <p>
+                    Total to pay:{" "}
+                    {(totalPrice.toFixed(2) - order.points_used).toFixed(2)}{" "}
+                    Points
+                  </p>
                   <button
                     onClick={() => handlePay(order.id_order, order.id_table)}
                   >
