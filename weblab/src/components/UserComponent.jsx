@@ -16,11 +16,11 @@ function UserComponent() {
   async function onSubmit(obj) {
     if (obj.name && obj.name !== user_auth.name) {
       await updateName(obj.name, user_auth.id);
-      toast.success(" Profile update successfully");
+      
     }
     if (obj.surname && obj.surname !== user_auth.surname) {
       await updateSurname(obj.surname, user_auth.id);
-    }
+    }toast.success(" Profile update successfully");
   }
 
   function handleResetPassword() {
