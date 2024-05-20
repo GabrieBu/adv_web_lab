@@ -19,14 +19,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useSubmitted } from "../contexts/SubmittedContext";
 import { useUser } from "../hooks/useUser";
-// import { useAuthUser } from "../hooks/useAuthUser";
 
 function Order() {
   const { order, setOrder } = useOrder();
   const { submitted, setSubmitted } = useSubmitted();
   const { u_order, setUOrder } = useUpdatedOrder();
-  const { id } = useUser();
-  // const { user_auth } = useAuthUser();
+  const { id, user } = useUser();
 
   order.tableId = "";
   const { register, handleSubmit } = useForm();
@@ -119,11 +117,11 @@ function Order() {
           textAlign: "center",
         }}
       >
-        <div style={{ fontSize: "18px", marginBottom: "16px" }}>          
-        Please enter the number of points which you want to pay with:<h3>
-          {/* <h1 >Earned Points </h1>
-          <h1>{user_auth.points}</h1> */}
-        </h3>
+        <div style={{ fontSize: "18px", marginBottom: "16px" }}>
+          <h1 style={{ color: "green", fontWeight: "bold" }}>
+            You have {user.points} points
+          </h1>
+          Please enter the number of points which you want to pay with:
         </div>
         <form onSubmit={handleSubmitPoint(onSubmitPoint)}>
           <input
@@ -452,11 +450,18 @@ function Order() {
                 transform: "translateX(-50%)",
               }}
             >
-              <button type="submit" className="btn btn-success btn-lg" style={{ backgroundColor: "#008000", color: "white" }}>
+              <button
+                type="submit"
+                className="btn btn-success btn-lg"
+                style={{ backgroundColor: "#008000", color: "white" }}
+              >
                 Submit the order
               </button>
               <p></p>
-              <select {...register("selectedTable")} style={{borderRadius: "10px",}}>
+              <select
+                {...register("selectedTable")}
+                style={{ borderRadius: "10px" }}
+              >
                 <option value="">Select a table</option>
                 {tables.map((table) => (
                   <option key={table.id_table} value={table.id_table}>
@@ -484,7 +489,11 @@ function Order() {
                   type="button"
                   className="btn btn-success btn-lg"
                   onClick={showToast}
-                  style={{ backgroundColor: "#008000", color: "white" ,borderRadius: "10px",}}
+                  style={{
+                    backgroundColor: "#008000",
+                    color: "white",
+                    borderRadius: "10px",
+                  }}
                 >
                   Confirm to pay
                 </button>
@@ -503,7 +512,11 @@ function Order() {
                 onClick={handleEdit}
                 type="button"
                 className="btn btn-success btn-lg"
-                style={{ backgroundColor: "#008000", color: "white" ,borderRadius: "10px",}}
+                style={{
+                  backgroundColor: "#008000",
+                  color: "white",
+                  borderRadius: "10px",
+                }}
               >
                 Replace Order
               </button>
