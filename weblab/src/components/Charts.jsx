@@ -5,6 +5,7 @@ import {
   VictoryLine,
   VictoryLabel,
   VictoryScatter,
+  VictoryAxis,
 } from "victory";
 import {
   getChartsWeeks,
@@ -14,9 +15,7 @@ import {
 
 function Charts() {
   const containerStyle = {
-    display: "flex",
-    height: "50vh",
-    width: "85vw",
+    width: "60vw"
   };
 
   const columnStyle = {
@@ -46,9 +45,9 @@ function Charts() {
   }, [selectedMonth, selectedYear]);
 
   const fetchWeekChart = async (month, year) => {
-    console.log("fetchWeekChart: ", month, year);
+    //console.log("fetchWeekChart: ", month, year);
     const data = await getChartsWeeks(year, month);
-    console.log("data: ", data);
+    //console.log("data: ", data);
     const formattedData = data.map((item) => ({
       x: `${item.week_number}`,
       y: item.total_sales,
@@ -111,6 +110,7 @@ function Charts() {
   const handleMonthClick = (event, data) => {
     const monthAbbreviation = data.datum.x;
     const month = monthAbbreviations[monthAbbreviation];
+    console.log("month: ", month)
     setSelectedMonth(month);
   };
 
@@ -158,24 +158,60 @@ function Charts() {
   ];
   const monthName = monthNames[selectedMonth - 1];
 
-  console.log("weekChart: ", weekChart);
+  const handleMonthChange = (event) => {
+    setSelectedMonth(event.target.value);
+  };
+
+  const handleYearChange = (event) => {
+    setSelectedYear(event.target.value);
+  };
+
+  const handleSubmit = () => {
+    console.log(`Selected Month: ${selectedMonth}`);
+    console.log(`Selected Year: ${selectedYear}`);
+  };
 
   return (
     <div>
-      <h1 className="text-center">Charts</h1>
+      <h1 className="text-center" style={{ color: "orange" }}>Charts</h1>
+      <p></p>
+      <div style={{ display: "flex" }}>
+      <select className="form-select" style={{  }} value={selectedMonth} onChange={handleMonthChange}>
+        <option value="1">January</option>
+        <option value="2">February</option>
+        <option value="3">March</option>
+        <option value="4">April</option>
+        <option value="5">May</option>
+        <option value="6">June</option>
+        <option value="7">July</option>
+        <option value="8">August</option>
+        <option value="9">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+      </select>
+
+      <select className="form-select" value={selectedYear} onChange={handleYearChange}>
+        <option value={currentYear}>{currentYear}</option>
+        <option value={currentYear - 1}>{currentYear - 1}</option>
+        <option value={currentYear - 2}>{currentYear - 2}</option>
+        <option value={currentYear - 3}>{currentYear - 3}</option>
+      </select>
+      </div>
+      <p></p>
       <div style={containerStyle}>
-        <div style={columnStyle}>
+        <div>
           <div>
             <VictoryChart
               domainPadding={10}
               style={{
-                parent: { boxShadow: "0px 5px 5px rgba(0, 0, 0, 0.15)" },
+                parent: { boxShadow: "5px 5px 5px rgba(0, 0, 0, 0.15)" },
               }}
             >
               <VictoryLabel
                 text={`WEEKLY CHART REVENUE (${monthName} ${selectedYear})`}
                 x={225}
-                y={285}
+                y={20}
                 textAnchor="middle"
                 style={{ fontWeight: "bold" }}
               />
@@ -187,6 +223,12 @@ function Charts() {
                 labels={({ datum }) =>
                   datum.y === 0 ? "" : Math.round(datum.y)
                 }
+              />
+              <VictoryAxis
+                label={"Number of the week"}
+                style={{
+                  axisLabel: { padding: 30, fontSize: 10 },
+                }}
               />
               <VictoryLine
                 style={{ data: { stroke: "green", strokeWidth: 1 } }}
@@ -219,18 +261,19 @@ function Charts() {
             </VictoryChart>
           </div>
         </div>
-        <div style={columnStyle}>
+        <p></p>
+        <div>
           <div>
             <VictoryChart
               domainPadding={10}
               style={{
-                parent: { boxShadow: "0px 5px 5px rgba(0, 0, 0, 0.15)" },
+                parent: { boxShadow: "5px 5px 5px rgba(0, 0, 0, 0.15)" },
               }}
             >
               <VictoryLabel
                 text={`MONTHLY CHART REVENUE (${selectedYear})`}
                 x={225}
-                y={285}
+                y={20}
                 textAnchor="middle"
                 style={{ fontWeight: "bold" }}
               />
@@ -282,18 +325,19 @@ function Charts() {
             </VictoryChart>
           </div>
         </div>
-        <div style={columnStyle}>
+        <p></p>
+        <div>
           <div>
             <VictoryChart
               domainPadding={10}
               style={{
-                parent: { boxShadow: "0px 5px 5px rgba(0, 0, 0, 0.15)" },
+                parent: { boxShadow: "5px 5px 5px rgba(0, 0, 0, 0.15)" },
               }}
             >
               <VictoryLabel
                 text="YEARLY CHART REVENUE"
                 x={225}
-                y={285}
+                y={20}
                 textAnchor="middle"
                 style={{ fontWeight: "bold" }}
               />
