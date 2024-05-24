@@ -59,6 +59,69 @@ export async function getOrdersWaiter(id) {
   return { ordersData, containsData, dishesData };
 }
 
+export async function getOrdersPreparing() {
+  const { data: orders, error } = await supabase
+    .from("order")
+    .select("*")
+    .in("state", ["Preparing", "Ordered"])
+    .order("id_table", { ascending: true });
+
+  if (error) {
+    console.log("Error selecting orders to be paid:", error.message);
+    return;
+  }
+
+  const orderIds = orders?.map((item) => item.id_order);
+
+  const { data: containsData, error: containsError } = await supabase
+    .from("contains")
+    .select("*")
+    .in("id_order", orderIds);
+
+  if (containsError) {
+    throw new Error("Error fetching contains data for orders");
+  }
+
+  const dishIds = containsData?.map((containsItem) => containsItem.id_dish);
+
+  const { data: dishesData, error: dishesError } = await supabase
+    .from("food_drink")
+    .select("*")
+    .in("id_food_drink", dishIds); // Include only dishes with id_food_drink in dishIds
+
+  if (dishesError) {
+    throw new Error("Error fetching dish names");
+  }
+
+  const { data: manageData, error: manageError } = await supabase
+    .from("manage")
+    .select("*")
+    .in("id_order", orderIds); // Include only dishes with id_food_drink in dishIds
+
+  if (manageError) {
+    throw new Error("Error fetching manage");
+  }
+
+  const manageIds = manageData?.map((containsItem) => containsItem.id_staff);
+
+  const { data: staffData, error: staffError } = await supabase
+    .from("staff")
+    .select("*")
+    .in("id", manageIds); // Include only dishes with id_food_drink in dishIds
+
+  if (staffError) {
+    throw new Error("Error fetching manage");
+  }
+
+  return {
+    orders,
+    dishes: dishesData,
+    contains: containsData,
+    manage: manageData,
+    staff: staffData,
+  };
+}
+
 export async function getOrdersCooker(id) {
   const { data: manageData, error: manageError } = await supabase
     .from("manage")
@@ -265,7 +328,6 @@ export async function getStaff() {
     .from("staff")
     .select("*")
     .eq("id_role", 1);
-
   if (cookersError) {
     console.log("Cookers error");
     return;
@@ -333,6 +395,77 @@ export async function markAsPaid(id_order, id_table) {
 
   if (tableError) {
     console.log("Error Updating state table");
+    return;
+  }
+}
+
+export async function getCooks(id_order) {
+  const { data, error } = await supabase
+    .from("manage")
+    .select("id_staff")
+    .eq("id_order", id_order);
+
+  const staffIds = data.map((item) => item.id_staff);
+
+  if (error) {
+    console.log("Cook error");
+    return;
+  }
+
+  const { data: existingStaffData, error: existingStaffError } = await supabase
+    .from("staff")
+    .select("*")
+    .eq("id_role", 1)
+    .not("id", "in", `(${staffIds.join(",")})`); // Use not to select staff whose IDs are not in the staffIds array
+
+  if (existingStaffError) {
+    return;
+  }
+
+  return existingStaffData;
+}
+
+export async function getWaiters(id_order) {
+  const { data, error } = await supabase
+    .from("manage")
+    .select("id_staff")
+    .eq("id_order", id_order);
+
+  if (error) {
+    console.log("Waiters error");
+    return;
+  }
+
+  const staffIds = data.map((item) => item.id_staff);
+
+  const { data: existingStaffData, error: existingStaffError } = await supabase
+    .from("staff")
+    .select("*")
+    .eq("id_role", 2)
+    .not("id", "in", `(${staffIds.join(",")})`);
+  // Use not to select staff whose IDs are not in the staffIds array
+
+  if (existingStaffError) {
+    return;
+  }
+
+  return existingStaffData;
+}
+
+export async function insertStaff(arr, id_order) {
+  const filteredWaiters = arr
+    .filter((waiter) => waiter !== false)
+    .map((waiter) => ({
+      id_staff: waiter,
+      id_order: id_order,
+    }));
+
+  console.log(filteredWaiters);
+
+  const { error } = await supabase.from("manage").insert(filteredWaiters);
+
+  if (error) {
+    console.log(error);
     return;
   }
 }
