@@ -58,7 +58,7 @@ export async function test() {
 export async function placeOrder(order, tableid, price, user_id) {
   let { data: insertedOrder, error: errorOrder } = await supabase
     .from("order")
-    .insert({ state: "Preparing", id_table: tableid, id_user: user_id })
+    .insert({ state: "Ordered", id_table: tableid, id_user: user_id })
     .select();
 
   if (errorOrder) {

@@ -8,13 +8,6 @@ import {
 } from "../services/db/staff/apiStaff";
 import { useForm } from "react-hook-form";
 
-//TO DO
-/*
-- order ordered in such a way
-- if two dishes of the same type and tick one, bot are ticked (WRONG)
-- protected route user
-*/
-
 function ManageOrder({ type, data }) {
   const [selectedOrder2, setSelectedOrder2] = useState(null);
   const [toSelectWaiter, setSelectWaiter] = useState(null);
@@ -124,7 +117,7 @@ function ManageOrder({ type, data }) {
                         const dishState = containsItem.state;
                         return (
                           <div
-                            key={containsItem.id_contains}
+                            key={containsItem.id_contains} // Use id_contains as key
                             style={{ color: getButtonColor(dishState) }}
                           >
                             {dish ? dish.name : "N/A"} - State: {dishState}

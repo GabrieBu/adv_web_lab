@@ -10,7 +10,6 @@ function ProtectedRouteUser({ children }) {
 
   useEffect(
     function () {
-      console.log(isAuthenticated);
       if (!isAuthenticated && !isLoading && fetchStatus !== "fetching") {
         navigate("/login");
       }

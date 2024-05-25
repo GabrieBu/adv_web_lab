@@ -28,7 +28,7 @@ export async function getOrdersWaiter(id) {
   const { data: ordersData, error: ordersError } = await supabase
     .from("order")
     .select("*")
-    .eq("state", "Preparing")
+    .or("state.eq.Preparing,state.eq.Ordered")
     .in("id_order", orderIds);
 
   if (ordersError) throw new Error("Error fetching orders");
@@ -139,7 +139,7 @@ export async function getOrdersCooker(id) {
   const { data: ordersData, error: ordersError } = await supabase
     .from("order")
     .select("*")
-    .eq("state", "Preparing")
+    .or("state.eq.Preparing,state.eq.Ordered")
     .in("id_order", orderIds)
     .order("created_at");
 
@@ -198,15 +198,13 @@ export async function setStateTable(id_table, value) {
   }
 }
 
-export async function setStateDishId(id_order, id_dish, new_state) {
-  const id_o = parseInt(id_order);
-  const id_d = parseInt(id_dish);
+export async function setStateDishId(id_contains, new_state) {
+  const id_c = parseInt(id_contains);
 
   const { error: containsError } = await supabase
     .from("contains")
     .update({ state: new_state })
-    .eq("id_order", id_o)
-    .eq("id_dish", id_d);
+    .eq("id_contains", id_c);
 
   if (containsError) {
     console.log("Error Updating state dish");
@@ -466,6 +464,19 @@ export async function insertStaff(arr, id_order) {
 
   if (error) {
     console.log(error);
+    return;
+  }
+}
+
+export async function setPreparing(id_order) {
+  console.log(id_order);
+  const { error } = await supabase
+    .from("order")
+    .update({ state: "Preparing" })
+    .eq("id_order", id_order);
+
+  if (error) {
+    console.log("Error Updating order state");
     return;
   }
 }

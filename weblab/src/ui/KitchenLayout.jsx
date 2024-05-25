@@ -1,5 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { getOrdersCooker, setStateDishId } from "../services/db/staff/apiStaff";
+import {
+  getOrdersCooker,
+  setStateDishId,
+  setPreparing,
+} from "../services/db/staff/apiStaff";
 import PropTypes from "prop-types";
 import Loader from "../loaders/Loader";
 import { useState } from "react";
@@ -48,6 +52,7 @@ function KitchenLayout({ id }) {
         const createdAt = order ? order.created_at : "N/A";
         const tableId = order ? order.id_table : "N/A";
         const notes = containsItem.notes;
+        const id_contains = containsItem.id_contains;
         const id_order = containsItem.id_order;
         const id_dish = containsItem.id_dish;
         const state = containsItem.state;
@@ -57,6 +62,7 @@ function KitchenLayout({ id }) {
           createdAt,
           tableId,
           notes,
+          id_contains, // Include id_contains here
           id_order,
           id_dish,
           state,
@@ -66,8 +72,7 @@ function KitchenLayout({ id }) {
     }
   }, [data]);
 
-  const handleCheckboxChange = async (index, id_order, id_dish, event) => {
-    console.log("handle: ", id_order, id_dish);
+  const handleCheckboxChange = async (index, id_contains, id_order, event) => {
     const value = event.target.checked ? "Ready" : "Cooking";
     const newMergedData = [...merged_data];
     newMergedData[index] = {
@@ -75,8 +80,12 @@ function KitchenLayout({ id }) {
       state: value, // Update isChecked property based on checkbox state
     };
 
-    await setStateDishId(id_order, id_dish, value);
+    await setStateDishId(id_contains, value);
     setMergedData(newMergedData); // Update state of mergedData
+
+    if (value === "Ready") {
+      setPreparing(id_order);
+    }
   };
 
   if (isLoading) return <Loader />;
@@ -95,15 +104,15 @@ function KitchenLayout({ id }) {
         </thead>
         <tbody>
           {merged_data?.map((item, index) => (
-            <tr key={index}>
+            <tr key={index} id={index}>
               <td style={styles.row}>
                 <input
                   type="checkbox"
                   onChange={(event) =>
                     handleCheckboxChange(
                       index,
+                      item.id_contains,
                       item.id_order,
-                      item.id_dish,
                       event
                     )
                   }
