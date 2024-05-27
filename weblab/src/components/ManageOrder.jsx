@@ -104,7 +104,8 @@ function ManageOrder({ type, data }) {
                     )
                   }
                 >
-                  Order ID: {order.id_order}
+                  Order ID: {order.id_order} -{" "}
+                  {order.created_at.split("T")[1].split(".")[0].slice(0, 5)}
                 </button>
                 {isOpen && (
                   <div>

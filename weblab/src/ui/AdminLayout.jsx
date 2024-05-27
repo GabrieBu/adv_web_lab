@@ -26,7 +26,7 @@ function AdminLayout() {
   }
 
   return (
-    <div className="d-flex" id="wrapper">
+    <div className="d-flex" id="wrapper" style={{ width: "100%" }}>
       <Sidebar onSetTab={setTab} tab={tab} />
       <div id="page-content-wrapper" style={{ width: "100%" }}>
         <div className="container-fluid" style={{ width: "100%" }}>

@@ -15,7 +15,7 @@ import {
 
 function Charts() {
   const containerStyle = {
-    width: "60vw"
+    width: "60vw",
   };
 
   const columnStyle = {
@@ -110,7 +110,7 @@ function Charts() {
   const handleMonthClick = (event, data) => {
     const monthAbbreviation = data.datum.x;
     const month = monthAbbreviations[monthAbbreviation];
-    console.log("month: ", month)
+    console.log("month: ", month);
     setSelectedMonth(month);
   };
 
@@ -172,31 +172,42 @@ function Charts() {
   };
 
   return (
-    <div>
-      <h1 className="text-center" style={{ color: "orange" }}>Charts</h1>
+    <div style={{ width: "50%" }}>
+      <h1 className="text-center" style={{ color: "orange" }}>
+        Charts
+      </h1>
       <p></p>
       <div style={{ display: "flex" }}>
-      <select className="form-select" style={{  }} value={selectedMonth} onChange={handleMonthChange}>
-        <option value="1">January</option>
-        <option value="2">February</option>
-        <option value="3">March</option>
-        <option value="4">April</option>
-        <option value="5">May</option>
-        <option value="6">June</option>
-        <option value="7">July</option>
-        <option value="8">August</option>
-        <option value="9">September</option>
-        <option value="10">October</option>
-        <option value="11">November</option>
-        <option value="12">December</option>
-      </select>
+        <select
+          className="form-select"
+          style={{}}
+          value={selectedMonth}
+          onChange={handleMonthChange}
+        >
+          <option value="1">January</option>
+          <option value="2">February</option>
+          <option value="3">March</option>
+          <option value="4">April</option>
+          <option value="5">May</option>
+          <option value="6">June</option>
+          <option value="7">July</option>
+          <option value="8">August</option>
+          <option value="9">September</option>
+          <option value="10">October</option>
+          <option value="11">November</option>
+          <option value="12">December</option>
+        </select>
 
-      <select className="form-select" value={selectedYear} onChange={handleYearChange}>
-        <option value={currentYear}>{currentYear}</option>
-        <option value={currentYear - 1}>{currentYear - 1}</option>
-        <option value={currentYear - 2}>{currentYear - 2}</option>
-        <option value={currentYear - 3}>{currentYear - 3}</option>
-      </select>
+        <select
+          className="form-select"
+          value={selectedYear}
+          onChange={handleYearChange}
+        >
+          <option value={currentYear}>{currentYear}</option>
+          <option value={currentYear - 1}>{currentYear - 1}</option>
+          <option value={currentYear - 2}>{currentYear - 2}</option>
+          <option value={currentYear - 3}>{currentYear - 3}</option>
+        </select>
       </div>
       <p></p>
       <div style={containerStyle}>
