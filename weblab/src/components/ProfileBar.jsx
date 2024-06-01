@@ -27,6 +27,7 @@ function ProfileBar({ active_page }) {
     <ul className="nav nav-pills nav-fill fixed-bottom">
       <li className="nav-item">
         <Link
+          id="home"
           to="/home"
           className="nav-link active"
           aria-current="page"
@@ -44,6 +45,7 @@ function ProfileBar({ active_page }) {
       </li>
       <li className="nav-item">
         <Link
+          id="order"
           to="/order"
           className="nav-link"
           style={{
@@ -60,6 +62,7 @@ function ProfileBar({ active_page }) {
       </li>
       <li className="nav-item">
         <Link
+          id="profile"
           to="/profile"
           className="nav-link"
           style={{

@@ -84,16 +84,14 @@ function DishItem({ dishId }) {
     fontSize: "1rem",
     margin: "4px 0",
   };
-  
 
   return (
     <div style={dishItemStyle}>
       <div style={dishContentStyle}>
         <h3 style={dishNameStyle}>{dishData.name}</h3>
         {/* // Added tags for dish type (spicy, vegan, alcohol) */}
-        <p style={dishItemTypeStyle}>{dishData.item_type}</p>  
+        <p style={dishItemTypeStyle}>{dishData.item_type}</p>
         <p style={dishPriceStyle}>PLN {dishData.selling_price}</p>
-        
       </div>
       <div style={dishImageContainerStyle} onClick={toggleDescription}>
         <img
@@ -102,6 +100,7 @@ function DishItem({ dishId }) {
           style={dishImageStyle}
         />
         <button
+          id={dishId}
           style={addButtonStyle}
           onClick={(e) => {
             e.stopPropagation(); // Prevents the click from triggering the toggleDescription

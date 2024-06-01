@@ -154,6 +154,7 @@ function Order() {
               Dismiss
             </button>
             <button
+              id="submit_points"
               type="submit"
               style={{
                 marginLeft: "8px",
@@ -216,6 +217,7 @@ function Order() {
             Dismiss
           </button>
           <button
+            id="accept"
             style={{
               marginLeft: "8px",
               padding: "8px 16px",
@@ -392,6 +394,7 @@ function Order() {
               Total price:<b>{" " + price.toFixed(2)}</b> PLN
             </p>
             <Link
+              id="add_more"
               to="/home"
               style={{ textDecoration: "none", color: "inherit" }}
             >
@@ -451,6 +454,7 @@ function Order() {
               }}
             >
               <button
+                id="submit_order"
                 type="submit"
                 className="btn btn-success btn-lg"
                 style={{ backgroundColor: "#008000", color: "white" }}
@@ -459,6 +463,7 @@ function Order() {
               </button>
               <p></p>
               <select
+                id="num_table"
                 {...register("selectedTable")}
                 style={{ borderRadius: "10px" }}
               >
@@ -486,6 +491,7 @@ function Order() {
                 }}
               >
                 <button
+                  id="confirm_to_pay"
                   type="button"
                   className="btn btn-success btn-lg"
                   onClick={showToast}

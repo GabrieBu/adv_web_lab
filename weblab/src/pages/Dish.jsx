@@ -68,9 +68,8 @@ export default function Dish() {
       ...prevOrder,
       dishes: newOrder,
     }));
-    toast.success("Order added successfully!");// display notification when user click add to order
+    toast.success("Order added successfully!"); // display notification when user click add to order
   }
-  
 
   if (isLoadingSelect) return <Loader />;
   if (!dish || dish.length === 0) return <p>No dish found.</p>;
@@ -86,6 +85,7 @@ export default function Dish() {
     <div>
       <ProfileBar />
       <Link
+        id="back"
         to="/home"
         style={{
           position: "absolute",
@@ -99,7 +99,14 @@ export default function Dish() {
 
       <div style={{ margin: 0, fontFamily: "Arial, sans-serif" }}>
         {/* <!-- Pizza Image --> */}
-        <div style={{ textAlign: "center", paddingTop: "50px" , height: "300px", overflow: "hidden"}}>
+        <div
+          style={{
+            textAlign: "center",
+            paddingTop: "50px",
+            height: "300px",
+            overflow: "hidden",
+          }}
+        >
           {/* <!-- added padding to make space for the back button --> */}
           <img
             src={dishData?.image}
@@ -116,7 +123,9 @@ export default function Dish() {
           </div>
           <div style={{ fontSize: "20px", color: "green" }}>
             {dishData.selling_price}
-            <span style={{ fontSize: "16px", color: "grey" , marginLeft: "10px"}}>
+            <span
+              style={{ fontSize: "16px", color: "grey", marginLeft: "10px" }}
+            >
               Earn {(dishData.selling_price + 0.01) / 10} points
             </span>
           </div>
@@ -125,6 +134,7 @@ export default function Dish() {
 
           {/* <!-- Add a Note Section --> */}
           <textarea
+            id="notes"
             placeholder="Add a note here"
             onChange={handleNoteChange}
             style={{
@@ -156,6 +166,7 @@ export default function Dish() {
             </button>
             <div style={{ margin: "0 15px", fontSize: "24px" }}>{count}</div>
             <button
+              id="increase"
               onClick={() => setCount((i) => i + 1)}
               style={{
                 width: "50px",
@@ -171,6 +182,7 @@ export default function Dish() {
             </button>
             {/* <!-- Add to Cart Button --> */}
             <button
+              id="add_to_order"
               onClick={addToOrder}
               style={{
                 // backgroundColor: "rgb(8, 99, 29)",
@@ -190,9 +202,23 @@ export default function Dish() {
       </div>
       <Link
         to="/order"
-        style={{ position: "fixed", bottom: "70px", left: "50%", transform: "translateX(-50%)" }}
+        style={{
+          position: "fixed",
+          bottom: "70px",
+          left: "50%",
+          transform: "translateX(-50%)",
+        }}
       >
-        <button className="btn btn-success" style={{ backgroundColor: "#008000", color: "white" ,borderRadius: "10px"}}>View Current Order</button>
+        <button
+          className="btn btn-success"
+          style={{
+            backgroundColor: "#008000",
+            color: "white",
+            borderRadius: "10px",
+          }}
+        >
+          View Current Order
+        </button>
       </Link>
     </div>
   );

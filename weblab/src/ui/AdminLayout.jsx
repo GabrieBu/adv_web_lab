@@ -8,6 +8,7 @@ import AdminTables from "../components/AdminTables";
 import Manage from "../components/Manage";
 import Payment from "../components/Payment";
 import Charts from "../components/Charts";
+
 function AdminLayout() {
   const [tab, setTab] = useState(4);
   useTitle("Staff Dashboard");

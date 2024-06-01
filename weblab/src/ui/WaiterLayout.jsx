@@ -53,6 +53,7 @@ function WaiterLayout({ id }) {
         const orderId = order ? order.id_order : "N/A"; // Include order ID
         const dishId = containsItem.id_dish; // Include dish ID
         const state = containsItem.state === "Not Ready" ? "No" : "Yes"; // Include state
+        const id_contains = containsItem.id_contains;
 
         return {
           dishName,
@@ -61,6 +62,7 @@ function WaiterLayout({ id }) {
           orderId,
           dishId,
           state,
+          id_contains,
         };
       });
 
@@ -68,7 +70,7 @@ function WaiterLayout({ id }) {
     }
   }, [isLoading, data]);
 
-  const handleCheckboxChange = async (index, id_order, id_dish, event) => {
+  const handleCheckboxChange = async (index, id_order, id_contains, event) => {
     const value = event.target.checked ? "Served" : "Ready";
     const newMergedData = [...merged_data];
     newMergedData[index] = {
@@ -85,7 +87,7 @@ function WaiterLayout({ id }) {
       await setStateOrderCompleted(id_order);
     }
 
-    await setStateDishId(id_order, id_dish, value);
+    await setStateDishId(id_contains, value);
     setMergedData(newMergedData); // Update state of mergedData
   };
 
@@ -114,7 +116,7 @@ function WaiterLayout({ id }) {
                     handleCheckboxChange(
                       index,
                       item.orderId,
-                      item.dishId,
+                      item.id_contains,
                       event
                     )
                   }

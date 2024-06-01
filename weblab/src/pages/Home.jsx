@@ -100,49 +100,50 @@ function Home() {
           }}
         >
           {showFilter && (
-            <><div style={{ width: "100%" }}>
-              {filterNames.map((filter, index) => (
-                <button
-                  key={index}
-                  onClick={() => handleFilterSelection(index)}
-                  style={{
-                    color: "black",
-                    backgroundColor:
-                      selectedFilter === index ? "lightgreen" : "lightgrey",
-                    borderRadius: "10px",
-                    padding: "0px 2px",
-                    margin: "2px",
-                    border:
-                      selectedFilter === index
-                        ? "1px solid green"
-                        : "1px solid lightgray",
-                  }}
-                >
-                  {filter}
-                </button>
-              ))}
-               </div>
+            <>
               <div style={{ width: "100%" }}>
-              {typeFilters.map((type, index) => (
-                <button
-                  key={index}
-                  onClick={() => handleTypeSelection(index)}
-                  style={{
-                    color: "black",
-                    backgroundColor:
-                      selectedType === index ? "lightblue" : "lightgrey",
-                    borderRadius: "10px",
-                    padding: "0px 2px",
-                    margin: "2px",
-                    border:
-                      selectedType === index
-                        ? "1px solid blue"
-                        : "1px solid lightgray",
-                  }}
-                >
-                  {type}
-                </button>
-              ))}
+                {filterNames.map((filter, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleFilterSelection(index)}
+                    style={{
+                      color: "black",
+                      backgroundColor:
+                        selectedFilter === index ? "lightgreen" : "lightgrey",
+                      borderRadius: "10px",
+                      padding: "0px 2px",
+                      margin: "2px",
+                      border:
+                        selectedFilter === index
+                          ? "1px solid green"
+                          : "1px solid lightgray",
+                    }}
+                  >
+                    {filter}
+                  </button>
+                ))}
+              </div>
+              <div style={{ width: "100%" }}>
+                {typeFilters.map((type, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleTypeSelection(index)}
+                    style={{
+                      color: "black",
+                      backgroundColor:
+                        selectedType === index ? "lightblue" : "lightgrey",
+                      borderRadius: "10px",
+                      padding: "0px 2px",
+                      margin: "2px",
+                      border:
+                        selectedType === index
+                          ? "1px solid blue"
+                          : "1px solid lightgray",
+                    }}
+                  >
+                    {type}
+                  </button>
+                ))}
               </div>
             </>
           )}
@@ -173,9 +174,24 @@ function Home() {
         </div>
         <Link
           to="/order"
-          style={{ position: "fixed", bottom: "70px", left: "50%", transform: "translateX(-50%)" }}
+          style={{
+            position: "fixed",
+            bottom: "70px",
+            left: "50%",
+            transform: "translateX(-50%)",
+          }}
         >
-          <button className="btn btn-success" style={{ backgroundColor: "#008000", color: "white" ,borderRadius: "10px",}}>View Current Order</button>
+          <button
+            id="view"
+            className="btn btn-success"
+            style={{
+              backgroundColor: "#008000",
+              color: "white",
+              borderRadius: "10px",
+            }}
+          >
+            View Current Order
+          </button>
         </Link>
       </div>
     </div>

@@ -58,6 +58,7 @@ function Payment() {
           return (
             <li className="list-group-item" key={index}>
               <div
+                id={"div_order_" + order.id_order}
                 className="order-item"
                 onClick={() =>
                   setExpandedOrder(expandedOrder === index ? null : index)
@@ -90,6 +91,7 @@ function Payment() {
                     {(totalPrice.toFixed(2) - order.points_used).toFixed(2)} PLN
                   </p>
                   <button
+                    id={order.id_order}
                     onClick={() => handlePay(order.id_order, order.id_table)}
                   >
                     Mark as paid

@@ -88,6 +88,7 @@ function LoginAdmin() {
             />
           </div>
           <button
+            id="login_button"
             type="submit"
             style={{
               backgroundColor: "#007BFF",

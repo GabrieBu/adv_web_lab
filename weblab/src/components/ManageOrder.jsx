@@ -89,6 +89,7 @@ function ManageOrder({ type, data }) {
                 }}
               >
                 <button
+                  id={order.id_order}
                   style={{
                     marginBottom: "10px",
                     backgroundColor: getButtonColor(order.state), // Set button color based on dish state
@@ -137,6 +138,7 @@ function ManageOrder({ type, data }) {
                         </div>
                       ))}
                       <button
+                        id="+_cook"
                         style={{
                           backgroundColor: "#28a745",
                           color: "#fff",
@@ -158,6 +160,7 @@ function ManageOrder({ type, data }) {
                             {toSelectCook?.map((cook, index) => (
                               <React.Fragment key={index}>
                                 <input
+                                  id={cook.id}
                                   type="checkbox"
                                   {...register(`cooks.${index}`)}
                                   value={cook.id}
@@ -166,7 +169,9 @@ function ManageOrder({ type, data }) {
                                 <p></p>
                               </React.Fragment>
                             ))}
-                            <button type="submit">Save</button>
+                            <button id="cook_save" type="submit">
+                              Save
+                            </button>
                           </form>
                         </div>
                       )}
@@ -183,6 +188,7 @@ function ManageOrder({ type, data }) {
                         </div>
                       ))}
                       <button
+                        id="+_waiter"
                         style={{
                           backgroundColor: "#28a745",
                           color: "#fff",
@@ -204,6 +210,7 @@ function ManageOrder({ type, data }) {
                             {toSelectWaiter?.map((waiter, index) => (
                               <React.Fragment key={index}>
                                 <input
+                                  id={waiter.id}
                                   type="checkbox"
                                   {...register(`waiters.${index}`)}
                                   value={waiter.id}
@@ -212,7 +219,9 @@ function ManageOrder({ type, data }) {
                                 <p></p>
                               </React.Fragment>
                             ))}
-                            <button type="submit">Save</button>
+                            <button id="wait_save" type="submit">
+                              Save
+                            </button>
                           </form>
                         </div>
                       )}

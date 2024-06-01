@@ -87,7 +87,7 @@ function Login() {
             </div>
             {errorMessages && <p className="text-danger">{errorMessages}</p>}
             <p></p>
-            <button type="submit" className="btn btn-success">
+            <button id="login_button" type="submit" className="btn btn-success">
               {!isLoading ? "Login" : <Loader />}
             </button>
           </form>
