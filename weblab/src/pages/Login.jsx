@@ -18,29 +18,16 @@ function Login() {
     useState("");
   const [validation_resetPassword, setValidation_resetPassword] = useState("");
 
-  // async function onSubmit(auth) {
-  //   if (!validateEmail(auth.email)) {
-  //     setErrorMessages("Please enter a valid email address");
-  //     return;
-  //   }
-
-  //   if (!login(auth)) {
-  //     setErrorMessages("Invalid email or password");
-  //   } else {
-  //     login(auth);
-  //   }
-  // }
-    async function onSubmit(auth) {
-    setErrorMessages("");  // Reset error messages
+  async function onSubmit(auth) {
     if (!validateEmail(auth.email)) {
       setErrorMessages("Please enter a valid email address");
       return;
     }
 
-    try {
-      await login(auth);
-    } catch (error) {
+    if (!login(auth)) {
       setErrorMessages("Invalid email or password");
+    } else {
+      login(auth);
     }
   }
 
