@@ -1,10 +1,19 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
-const SubmittedContext = createContext();
+export const SubmittedContext = createContext();
 
 export const SubmittedProvider = ({ children }) => {
-  const [submitted, setSubmitted] = useState(false);
+  // Load submitted from localStorage or initialize with false
+  const [submitted, setSubmitted] = useState(() => {
+    const storedSubmitted = localStorage.getItem("submitted");
+    return storedSubmitted ? JSON.parse(storedSubmitted) : false;
+  });
+
+  // Save submitted to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("submitted", JSON.stringify(submitted));
+  }, [submitted]);
 
   return (
     <SubmittedContext.Provider value={{ submitted, setSubmitted }}>
@@ -16,5 +25,3 @@ export const SubmittedProvider = ({ children }) => {
 SubmittedProvider.propTypes = {
   children: PropTypes.node.isRequired, // specify that children can be any renderable React node
 };
-
-export const useSubmitted = () => useContext(SubmittedContext);

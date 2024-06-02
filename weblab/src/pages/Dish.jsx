@@ -7,7 +7,7 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import Loader from "../loaders/Loader";
 import useOrder from "../hooks/useOrder";
 import ProfileBar from "../components/ProfileBar";
-import { useSubmitted } from "../contexts/SubmittedContext";
+import useSubmitted from "../hooks/useSubmitted";
 import useUpdatedOrder from "../hooks/useUpdatedOrder";
 import toast from "react-hot-toast";
 
@@ -68,7 +68,7 @@ export default function Dish() {
       ...prevOrder,
       dishes: newOrder,
     }));
-    toast.success("Order added successfully!"); // display notification when user click add to order
+    toast.success("Dish added successfully!"); // display notification when user click add to order
   }
 
   if (isLoadingSelect) return <Loader />;

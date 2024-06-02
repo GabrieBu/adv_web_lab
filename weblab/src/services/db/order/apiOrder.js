@@ -1,7 +1,19 @@
 import { supabase } from "../supabase";
 
 export async function editOrder(order, id_order, price) {
+  console.log("in edit", order.dishes);
+  console.log(id_order);
   const { data: user } = await supabase.auth.getUser();
+
+  const { error: errorUpdateOrder } = await supabase
+    .from("order")
+    .update({ state: "Preparing" })
+    .eq("id_order", id_order);
+
+  if (errorUpdateOrder) {
+    console.log("Error Update Order");
+    return;
+  }
 
   const recordsToInsert = order.dishes.map((item) => ({
     id_order: id_order,

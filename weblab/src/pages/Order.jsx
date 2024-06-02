@@ -1,5 +1,6 @@
 import useOrder from "../hooks/useOrder";
 import useUpdatedOrder from "../hooks/useUpdatedOrder";
+import useSubmitted from "../hooks/useSubmitted";
 import toast from "react-hot-toast";
 import {
   editOrder,
@@ -17,7 +18,6 @@ import { useForm } from "react-hook-form";
 import ProfileBar from "../components/ProfileBar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { useSubmitted } from "../contexts/SubmittedContext";
 import { useUser } from "../hooks/useUser";
 
 function Order() {
@@ -67,13 +67,14 @@ function Order() {
       return;
     } else {
       setSubmitted(true);
-      const id_order = await placeOrder(
+      const id_order_returned = await placeOrder(
         order,
         data.selectedTable,
         price.toFixed(2),
         id
       );
-      order.id_order = id_order;
+      //order.id_order = id_order;
+      setOrder({ ...order, id_order: id_order_returned });
       toast.success("Order placed successfully");
     }
   }
@@ -515,6 +516,7 @@ function Order() {
               }}
             >
               <button
+                id="replace"
                 onClick={handleEdit}
                 type="button"
                 className="btn btn-success btn-lg"
